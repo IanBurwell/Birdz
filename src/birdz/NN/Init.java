@@ -2,7 +2,7 @@ package birdz.NN;
 
 public class Init {
 	
-	class IntegerInput implements NeuralNetwork.Input {
+	static class IntegerInput implements NeuralNetwork.Input {
 
 		Integer value;
 		

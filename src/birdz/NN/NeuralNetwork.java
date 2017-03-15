@@ -6,7 +6,7 @@ public class NeuralNetwork {
 		Double fire();
 	}
 
-	class Perceptron implements Input {
+	public class Perceptron implements Input {
 		
 		NeuralNetwork network;
 		Input[] inputs;
@@ -46,10 +46,12 @@ public class NeuralNetwork {
 	/**
 	 * The 2-dimensional array of <code>Perceptrons</code>
 	 */
-	Perceptron[][] network;	
-	Input[] inputs;
-	Perceptron[] outputs;
-
+	public Perceptron[][] network;	
+	public Input[] inputs;
+	public Perceptron[] outputs;
+	
+	
+	
 	/**
 	 * Creates a <code>NeuralNetwork</code> given a number of <code>Perceptron</code> layers, layer size, and a series of inputs
 	 * @param hiddenLayers The number of hidden layers in the network. Can be 0.
@@ -57,7 +59,7 @@ public class NeuralNetwork {
 	 * @param numOutputs The number of outputs to the <code>NeuralNetwork</code>. Must be greater than 0.
 	 * @param inputs The inputs to the neural network.
 	 */
-	NeuralNetwork(int hiddenLayers, int layerSize, int numOutputs, Input ... inputs) {
+	public NeuralNetwork(int hiddenLayers, int layerSize, int numOutputs, Input ... inputs) {
 		network = new Perceptron[hiddenLayers][layerSize];
 		this.inputs = inputs;
 		
@@ -73,7 +75,7 @@ public class NeuralNetwork {
 				double[] weights = new double[layerSize];									
 				for(int j = 0; j < layerSize; j++)											
 					weights[j] = getRandomWeightValue();			
-				network[l][i] = new Perceptron(network[i-1], weights, getRandomWeightValue(), this);			
+				network[l][i] = new Perceptron(network[l-1], weights, getRandomWeightValue(), this);			
 			}																				
 		}
 
