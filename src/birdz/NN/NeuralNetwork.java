@@ -8,8 +8,8 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 		Double fire();
 	}
 
-	class Perceptron implements Input {
-		
+	public class Perceptron implements Input {
+
 		NeuralNetwork network;
 		Input[] inputs;
 		double[] weights;
@@ -32,16 +32,18 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 				sum += inputs[i].fire() * weights[i + 1];
 			return sigmoid(sum);
 		}
-		
+
 	}
 
 	/**
 	 * The 2-dimensional array of <code>Perceptrons</code>
 	 */
-	Perceptron[][] network;	
-	Input[] inputs;
-	Perceptron[] outputs;
-	double score = 0;
+
+
+	public Perceptron[][] network;	
+	public Input[] inputs;
+	public Perceptron[] outputs;
+	public double score = 0;
 
 	/**
 	 * Creates a <code>NeuralNetwork</code> given a number of <code>Perceptron</code> layers, layer size, and a series of inputs
@@ -53,7 +55,7 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 	public NeuralNetwork(int hiddenLayers, int layerSize, int numOutputs, Input ... inputs) {
 		network = new Perceptron[hiddenLayers][layerSize];
 		this.inputs = inputs;
-		
+
 		for(int i = 0; i < layerSize; i++) {												
 			double[] weights = new double[layerSize];										
 			for(int j = 0; j < this.inputs.length; j++)										
@@ -88,7 +90,7 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 		}
 		return result;
 	}
-	
+
 	private double getRandomWeightValue() {
 		return (Math.random() * 2 / Math.sqrt(inputs.length)) - 1;
 	}
@@ -111,12 +113,15 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 	}
 	
 	public void setScore(double s) {
+
 		score = s;
 	}
+
 	
 	public double getScore() {
 		return score;
 	}
+
 	
 	/**
 	 * 
