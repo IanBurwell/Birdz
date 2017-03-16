@@ -1,6 +1,8 @@
 package birdz.NN;
 
 public class NeuralNetwork implements Comparable<NeuralNetwork> {
+	
+	public static final boolean DEBUGGING = true;
 
 	public interface Input {
 		Double fire();
@@ -31,15 +33,6 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 			return sigmoid(sum);
 		}
 		
-		/**
-		 * 
-		 * @param input the calculated sum of this object's inputs.
-		 * @return a number between 0.0 and 1.0 representing whether this <code>Perceptron</code> is firing
-		 */
-		double sigmoid(double input) {
-			return 1.0 / Math.pow((1 + Math.E), input);
-		}
-		
 	}
 
 	/**
@@ -48,7 +41,7 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 	Perceptron[][] network;	
 	Input[] inputs;
 	Perceptron[] outputs;
-	int score = 0;
+	double score = 0;
 
 	/**
 	 * Creates a <code>NeuralNetwork</code> given a number of <code>Perceptron</code> layers, layer size, and a series of inputs
@@ -57,7 +50,7 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 	 * @param numOutputs The number of outputs to the <code>NeuralNetwork</code>. Must be greater than 0.
 	 * @param inputs The inputs to the neural network.
 	 */
-	NeuralNetwork(int hiddenLayers, int layerSize, int numOutputs, Input ... inputs) {
+	public NeuralNetwork(int hiddenLayers, int layerSize, int numOutputs, Input ... inputs) {
 		network = new Perceptron[hiddenLayers][layerSize];
 		this.inputs = inputs;
 		
@@ -73,7 +66,7 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 				double[] weights = new double[layerSize];									
 				for(int j = 0; j < layerSize; j++)											
 					weights[j] = getRandomWeightValue();			
-				network[l][i] = new Perceptron(network[i-1], weights, this);			
+				network[l][i] = new Perceptron(network/*TODO*/[l-1]/*TODO*/, weights, this);			
 			}																				
 		}
 
@@ -90,8 +83,9 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 
 	public double[] run() {
 		double[] result = new double[outputs.length];
-		for(int i = 0; i < outputs.length; i++)
+		for(int i = 0; i < outputs.length; i++) {
 			result[i] = outputs[i].fire();
+		}
 		return result;
 	}
 	
@@ -99,27 +93,47 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 		return (Math.random() * 2 / Math.sqrt(inputs.length)) - 1;
 	}
 
-	public void evolve(NeuralNetwork a, int chanceCopy, int chanceMutate) {
-		for(int i = 0; i < network.length; i++)
-			for(int j = 0; j < network.length; j++)
-				for(int k = 0; k < network[i][j].weights.length; k++) 
+	public static void evolve(NeuralNetwork a, NeuralNetwork b, int chanceCopy, int chanceMutate) {
+
+		if(a.getScore() < b.getScore()) {
+			NeuralNetwork c;
+			c = b;
+			b = a;
+			a = c;
+		}
+		for(int i = 0; i < b.network.length; i++)
+			for(int j = 0; j < b.network[i].length; j++)
+				for(int k = 0; k < b.network[i][j].weights.length; k++) 
 					if((int)(Math.random() * chanceCopy) == 0)
-						network[i][j].weights[k] = a.network[i][j].weights[k];
+						b.network[i][j].weights[k] = a.network[i][j].weights[k];
 					else if((int)(Math.random() * chanceMutate) == 0)
-						network[i][j].weights[k] = getRandomWeightValue();
+						b.network[i][j].weights[k] = b.getRandomWeightValue();
 	}
 	
-	public void setScore(int s) {
+	public void setScore(double s) {
 		score = s;
 	}
 	
-	public int getScore() {
+	public double getScore() {
 		return score;
 	}
 	
+	/**
+	 * 
+	 * @param input the calculated sum of this object's inputs.
+	 * @return a number between 0.0 and 1.0 representing whether this <code>Perceptron</code> is firing
+	 */
+	public double sigmoid(double input) {
+		return 1.0 / (1 + Math.pow(Math.E, -input));
+	}
+	
+	static void debug(String m) {
+		if(DEBUGGING)
+			System.out.println("Debug (NeuralNetwork): " + m);
+	}
 
 	@Override
 	public int compareTo(NeuralNetwork n) {
-		return n.getScore() - score;
+		return (int) (score - n.getScore());
 	}
 }
