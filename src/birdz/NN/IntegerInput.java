@@ -1,15 +1,19 @@
 package birdz.NN;
 
-class IntegerInput implements NeuralNetwork.Input {
+public class IntegerInput implements NeuralNetwork.Input {
 
 	Integer value;
 	
-	IntegerInput(Integer value) {
+	public IntegerInput(Integer value) {
 		this.value = value;
 	}
 	
 	@Override
 	public Double fire() {
 		return (double) value;
+	}
+	
+	public String toString() {
+		return value.toString();
 	}
 }
