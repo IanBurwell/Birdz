@@ -1,4 +1,6 @@
 import java.awt.Color;
+import java.awt.GraphicsEnvironment;
+
 import javax.swing.JFrame;
 
 import birdz.NN.NeuralNetwork;
@@ -24,7 +26,6 @@ public class init {
 		};
 		
 		NeuralNetworkUI nnUI = new NeuralNetworkUI(new NeuralNetwork(2, 4, 2, input), "UI");//TODO make new input
-		
 		
 	}
 	

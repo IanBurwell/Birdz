@@ -76,7 +76,7 @@ public class NeuralNetworkUI extends JFrame{
 			g.fillOval(padding, padding, Math.min(this.getHeight(), this.getWidth()) - 2*padding, Math.min(this.getHeight(), this.getWidth()) - 2*padding);
 			
 			g.setColor(Color.WHITE);
-			g.setFont(new Font("Calkboard",Font.PLAIN, 10));
+			g.setFont(new Font("Helvetica", Font.PLAIN, 24));
 			g.drawString("TEST", Math.min(this.getHeight(), this.getWidth())/2 + padding, Math.min(this.getHeight(), this.getWidth())/2 + padding);
 		
 		}
