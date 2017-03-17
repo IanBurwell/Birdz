@@ -4,13 +4,15 @@ import birdz.NN.*;
 
 public class XORSimulation {
 	int popSize;
-	NeuralNetwork[] population;
+	public NeuralNetwork[] population;
 	double[] results;
 	double[] scores;
 
 	Integer a, b;
 	IntegerInput inputA, inputB;
 
+	
+	
 	public void run(int populationSize, int copyChance, int mutateChance, int crossesPerGeneration, int delay) {
 		this.popSize = populationSize;
 		population = new NeuralNetwork[popSize];

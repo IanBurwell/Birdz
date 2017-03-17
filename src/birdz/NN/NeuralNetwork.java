@@ -10,9 +10,9 @@ public class NeuralNetwork implements Comparable<NeuralNetwork> {
 
 	public class Perceptron implements Input {
 
-		NeuralNetwork network;
-		Input[] inputs;
-		double[] weights;
+		public NeuralNetwork network;
+		public Input[] inputs;
+		public double[] weights;
 
 
 		Perceptron(Input[] inputs, double[] weights, NeuralNetwork network) {

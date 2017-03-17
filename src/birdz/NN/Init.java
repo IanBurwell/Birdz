@@ -1,5 +1,6 @@
 package birdz.NN;
 
+import birdz.UI.NeuralNetworkUI;
 import simulations.*;
 
 public class Init {

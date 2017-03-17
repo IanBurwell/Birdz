@@ -25,7 +25,7 @@ public class init {
 			}
 		};
 		
-		NeuralNetworkUI nnUI = new NeuralNetworkUI(new NeuralNetwork(2, 4, 2, input), "UI");//TODO make new input
+		NeuralNetworkUI nnUI = new NeuralNetworkUI(new NeuralNetwork(3, 6, 2, input, input), "UI");//TODO make new input
 		
 	}
 	
