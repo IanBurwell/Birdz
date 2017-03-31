@@ -7,6 +7,7 @@ import birdz.NN.NeuralNetwork;
 import birdz.NN.NeuralNetwork.Input;
 import birdz.UI.NeuralNetworkUI;
 import birdz.UI.PixelUI;
+import birdz.UI.Environment.Environment;
 
 public class init {
 	
@@ -14,9 +15,16 @@ public class init {
 	
 	public static void main(String[] args){
 		//runPixelUiTest();
-		runNeuralNetworkUiTest();
+		//runNeuralNetworkUiTest();
+		runBirdsUiTest();
+		
 	}
 	
+	private static void runBirdsUiTest() {
+		Environment env = new Environment();
+		
+	}
+
 	private static void runNeuralNetworkUiTest(){
 		Input input = new Input(){
 			@Override
@@ -25,7 +33,9 @@ public class init {
 			}
 		};
 		
-		NeuralNetworkUI nnUI = new NeuralNetworkUI(new NeuralNetwork(3, 6, 2, input, input), "UI");//TODO make new input
+		NeuralNetworkUI nnUI = new NeuralNetworkUI(new NeuralNetwork(3, 6, 2, input, input), "UI", 1000, 600);//TODO make new input
+		
+		nnUI.setOutputStrength(1, 0, 1);
 		
 	}
 	
