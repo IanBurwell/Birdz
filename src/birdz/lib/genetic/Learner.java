@@ -31,9 +31,4 @@ public class Learner {
 		return population.getFittest();
 	}
 
-	public static void main(String[] args) {
-		Learner xorLearner = new Learner(new XorFitnessCalc(), 50);
-		xorLearner.learnUntilDone(true);
-	}
-
 }
