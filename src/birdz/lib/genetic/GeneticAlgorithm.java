@@ -9,11 +9,10 @@ public class GeneticAlgorithm {
 	private static final double mutationRate = 0.015; //0.015
 	private static final int tournamentSize = 5; //5
 	private static final boolean elitism = true; //true
-	public static final FitnessCalc fitnessCalc = new XorFitnessCalc();
-	static final int numLayers = 5;
-    static final int layerSize = 5;
+	static final int numLayers = 10;
+    static final int layerSize = 10;
 
-	public static Population evolvePopulation(Population pop) {
+	public static Population evolvePopulation(Population pop, FitnessCalc fitnessCalc) {
 		Population newPopulation = new Population(pop.size(), false, fitnessCalc, fitnessCalc.getNumInputs());
 
 		if (elitism) 
@@ -22,7 +21,7 @@ public class GeneticAlgorithm {
 		int elitismOffset = (elitism) ? 1 : 0;
 
 		for (int i = elitismOffset; i < pop.size(); i++) 
-			newPopulation.saveIndividual(i, crossover(tournamentSelection(pop), tournamentSelection(pop)));
+			newPopulation.saveIndividual(i, crossover(tournamentSelection(pop, fitnessCalc), tournamentSelection(pop, fitnessCalc), fitnessCalc));
 		
 		for (int i = elitismOffset; i < newPopulation.size(); i++) 
 			mutate(newPopulation.getIndividual(i));
@@ -30,7 +29,7 @@ public class GeneticAlgorithm {
 		return newPopulation;
 	}
 
-	private static Individual crossover(Individual indiv1, Individual indiv2) {
+	private static Individual crossover(Individual indiv1, Individual indiv2, FitnessCalc fitnessCalc) {
 		Individual newSol = new Individual();
 		newSol.generateIndividual(fitnessCalc, fitnessCalc.getNumInputs()); //
 		for (int i = 0; i < indiv1.size(); i++) 
@@ -45,7 +44,7 @@ public class GeneticAlgorithm {
 				indiv.setGene(i, HiddenLayer.getRandomWeightValue());
 	}
 
-	private static Individual tournamentSelection(Population pop) {
+	private static Individual tournamentSelection(Population pop, FitnessCalc fitnessCalc) {
 		Population tournament = new Population(tournamentSize, false, fitnessCalc, fitnessCalc.getNumInputs());
 
 		for (int i = 0; i < tournamentSize; i++) 

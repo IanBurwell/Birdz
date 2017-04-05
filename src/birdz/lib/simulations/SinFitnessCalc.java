@@ -33,5 +33,17 @@ public class SinFitnessCalc implements FitnessCalc {
 	public String displayFitness(Individual i) {
 		return String.valueOf(getFitness(i));
 	}
+
+	@Override
+	public int getNumLayers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getLayerSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

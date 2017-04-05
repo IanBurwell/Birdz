@@ -4,7 +4,7 @@ public class Brain {
 	
 	HiddenLayer[] layers;
 	double[] inputs;
-	static final ActivationFunction activationFunction = new SigmoidFunction();
+	static final ActivationFunction activationFunction = new StepFunction();
 
 	public Brain(int numInputs, int numLayers, int layerSize) {
 		layers = new HiddenLayer[numLayers];

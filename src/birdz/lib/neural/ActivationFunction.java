@@ -12,3 +12,12 @@ class SigmoidFunction implements ActivationFunction {
 	}
 	
 }
+
+class StepFunction implements ActivationFunction {
+
+	@Override
+	public double getValue(double input) {
+		return (input == 0) ? 0.5 : ((input > 0) ? 1 : 0); 
+	}
+	
+}

@@ -46,5 +46,17 @@ public class StringFitnessCalc implements FitnessCalc {
 			fitness = fitness + alphabet.charAt((int) (outputs[j] * alphabet.length()));
 		return fitness;
 	}
+
+	@Override
+	public int getNumLayers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getLayerSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
 	
 }

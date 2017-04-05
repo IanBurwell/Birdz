@@ -8,5 +8,9 @@ public interface FitnessCalc {
 	
 	int getNumInputs();
 	
+	int getNumLayers();
+	
+	int getLayerSize();
+	
 	String displayFitness(Individual i);
 }
