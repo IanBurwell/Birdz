@@ -3,7 +3,19 @@ package birdz.lib.genetic;
 public class Init {
 
     public static void main(String[] args) {
-    	FitnessCalc fitnessCalc = GeneticAlgorithm.fitnessCalc;
+    	//ianInit();
+    	pixelInit();
+    }
+
+    
+    
+	private static void pixelInit() {
+		
+		
+	}
+
+	private static void ianInit() {
+		FitnessCalc fitnessCalc = GeneticAlgorithm.fitnessCalc;
         Population myPop = new Population(50, true, fitnessCalc, fitnessCalc.getNumInputs());
         
         int generationCount = 0;
@@ -13,7 +25,6 @@ public class Init {
             myPop = GeneticAlgorithm.evolvePopulation(myPop);
         }
         System.out.println("Solution found!");
-        System.out.println("Generation: " + generationCount);
-
-    }
+        System.out.println("Generation: " + generationCount);		
+	}
 }
