@@ -1,12 +1,12 @@
 package birdz.lib.genetic;
 
-import birdz.lib.simulations.XorFitnessCalc;
+import birdz.lib.simulations.*;
 
 public class Init {
 
     public static void main(String[] args) {
-    	//ianInit();
-    	pixelInit();
+    	ianInit();
+    	//pixelInit();
     }
 
     
