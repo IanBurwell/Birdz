@@ -25,9 +25,10 @@ public class Learner {
 		return population.getFittest();
 	}
 
-	Individual nextGeneration() {
+	Individual nextGeneration(boolean display) {
 		generation++;
 		population = GeneticAlgorithm.evolvePopulation(population, fitnessCalc);
+		if(display) System.out.println("Generation: " + generation + " Fittest: \n" + fitnessCalc.displayFitness(population.getFittest()));
 		return population.getFittest();
 	}
 

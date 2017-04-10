@@ -19,7 +19,6 @@ public class PixelUI extends JFrame{
 		this.frameWidth = frameWidth;
 		this.frameHeight = frameHeight;
 		this.panel = new PixelPanel(pixels);
-
 		setupWindow();
 	}
 
