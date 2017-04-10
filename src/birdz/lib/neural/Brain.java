@@ -4,9 +4,11 @@ public class Brain {
 	
 	HiddenLayer[] layers;
 	double[] inputs;
-	static final ActivationFunction activationFunction = new StepFunction();
+	private int numInputs;
+	static final ActivationFunction activationFunction = new SigmoidFunction();
 
 	public Brain(int numInputs, int numLayers, int layerSize) {
+		this.numInputs = numInputs;
 		layers = new HiddenLayer[numLayers];
 		layers[0] = new HiddenLayer(layerSize, numInputs);	//Initialize first layer with NN inputs as inputs
 		for(int i = 1; i < numLayers && numLayers > 1; i++)
