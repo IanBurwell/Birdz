@@ -9,8 +9,6 @@ public class GeneticAlgorithm {
 	private static final double mutationRate = 0.015; //0.015
 	private static final int tournamentSize = 5; //5
 	private static final boolean elitism = true; //true
-	static final int numLayers = 3;
-    static final int layerSize = 3;
 
 	public static Population evolvePopulation(Population pop, FitnessCalc fitnessCalc) {
 		Population newPopulation = new Population(pop.size(), false, fitnessCalc, fitnessCalc.getNumInputs());

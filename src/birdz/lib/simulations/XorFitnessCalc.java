@@ -19,7 +19,7 @@ public class XorFitnessCalc implements FitnessCalc {
 
 	@Override
 	public double getIdealFitness() {
-		return 3.9999999;
+		return 4.0;
 	}
 
 	@Override
@@ -29,13 +29,13 @@ public class XorFitnessCalc implements FitnessCalc {
 
 	@Override
 	public String displayFitness(Individual i) {
-//		return String.valueOf(getFitness(i));
-		String display = "";
-    	display += String.valueOf(i.fire(new double[]{0,0})[0]) + " (should be 0)\n";
-    	display += String.valueOf(i.fire(new double[]{1,0})[0]) + " (should be 1)\n";
-    	display += String.valueOf(i.fire(new double[]{0,1})[0]) + " (should be 1)\n";
-    	display += String.valueOf(i.fire(new double[]{1,1})[0]) + " (should be 0)";
-    	return display;
+		return String.valueOf(getFitness(i));
+//		String display = "";
+//    	display += String.valueOf(i.fire(new double[]{0,0})[0]) + " (should be 0)\n";
+//    	display += String.valueOf(i.fire(new double[]{1,0})[0]) + " (should be 1)\n";
+//    	display += String.valueOf(i.fire(new double[]{0,1})[0]) + " (should be 1)\n";
+//    	display += String.valueOf(i.fire(new double[]{1,1})[0]) + " (should be 0)";
+//    	return display;
 	}
 
 	@Override

@@ -10,10 +10,12 @@ public class Individual {
     private double fitness = 0;
     FitnessCalc fitnessCalc;
     
-    int numLayers = GeneticAlgorithm.numLayers;
-    int layerSize = GeneticAlgorithm.layerSize;
+    int numLayers;
+    int layerSize;
 
     public void generateIndividual(FitnessCalc fitnessCalc, int numInputs) {
+    	numLayers = fitnessCalc.getNumLayers();
+    	layerSize = fitnessCalc.getLayerSize();
     	this.fitnessCalc = fitnessCalc;
     	brain = new Brain(numInputs, numLayers, layerSize);
         for (int i = 0; i < size(); i++) 
