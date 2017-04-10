@@ -9,8 +9,8 @@ public class GeneticAlgorithm {
 	private static final double mutationRate = 0.015; //0.015
 	private static final int tournamentSize = 5; //5
 	private static final boolean elitism = true; //true
-	static final int numLayers = 10;
-    static final int layerSize = 10;
+	static final int numLayers = 8;
+    static final int layerSize = 8;
 
 	public static Population evolvePopulation(Population pop, FitnessCalc fitnessCalc) {
 		Population newPopulation = new Population(pop.size(), false, fitnessCalc, fitnessCalc.getNumInputs());
@@ -33,9 +33,15 @@ public class GeneticAlgorithm {
 		Individual newSol = new Individual();
 		newSol.generateIndividual(fitnessCalc, fitnessCalc.getNumInputs()); //
 		for (int i = 0; i < indiv1.size(); i++) 
-			newSol.setGene(i, (Math.random() <= uniformRate) ? indiv1.getGene(i) : indiv2.getGene(i));
+			newSol.setGene(i, geneCoeff() * ((Math.random() <= uniformRate) ? indiv1.getGene(i) : indiv2.getGene(i)));
 		
 		return newSol;
+	}
+	
+	private static double geneCoeff() {
+		if(Math.random() < 0.7) return 1;
+		if(Math.random() < 0.6) return 1 + ((Math.random() - 0.5) / 50);
+		return 1 + ((Math.random() - 0.5) / 5);
 	}
 
 	private static void mutate(Individual indiv) {

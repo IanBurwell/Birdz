@@ -1,11 +1,11 @@
 package birdz.lib.genetic;
 
+
 import java.awt.Color;
 import java.awt.Point;
 
 import birdz.UI.PixelUI;
-import birdz.lib.simulations.PixelFitnessCalc;
-import birdz.lib.simulations.XorFitnessCalc;
+import birdz.lib.simulations.*;
 
 public class Init {
 

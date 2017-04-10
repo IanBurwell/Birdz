@@ -9,10 +9,6 @@ import java.awt.event.MouseListener;
 import javax.swing.JComponent;
 import javax.swing.JFrame;
 import javax.swing.JPanel;
-
-import birdz.NN.NeuralNetwork;
-import birdz.NN.NeuralNetwork.Input;
-import birdz.NN.NeuralNetwork.Perceptron;
 import birdz.lib.genetic.Individual;
 
 public class NeuralNetworkUI extends JFrame{
@@ -79,8 +75,8 @@ public class NeuralNetworkUI extends JFrame{
 			this.individual = individual;
 
 
-			for(int i = 0; i < individual.getFitnessCalc().getNumInputs(); i++)
-				network[0][i] = new NNUIElement(ElementType.Input);
+//			for(int i = 0; i < individual.getFitnessCalc().getNumInputs(); i++)//TODO yes
+//				network[0][i] = new NNUIElement(ElementType.Input);
 			
 			
 			//TODO make network fill

@@ -39,6 +39,8 @@ public class PixelFitnessCalc implements FitnessCalc{
 			int dX = (outputs[0] > 1/3) ? ((outputs[0] > 2/3) ? 1 : 0): -1;
 			int dY = (outputs[1] > 1/3) ? ((outputs[1] > 2/3) ? 1 : 0): -1;
 
+			//System.out.println(outputs[0] + "" + outputs[1]);
+			
 			if(dX == 0 && dY == 0)
 				break;
 			
