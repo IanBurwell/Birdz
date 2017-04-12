@@ -19,7 +19,7 @@ public class Init {
 	private static void pixelInit() {//TODO make not so inefficient 
 		Learner pixelLearner = new Learner(new PixelFitnessCalc(), 20);
 		
-		for(int i = 0; i < 1000; i++)
+		for(int i = 0; i < 100; i++)
 			pixelLearner.nextGeneration(true);
 		
 		
@@ -75,8 +75,22 @@ public class Init {
 			
 			double[] outputs = bestI.fire(walls);
 			
-			int dX = (outputs[0] > 1/3) ? ((outputs[0] > 2/3) ? 1 : 0): -1;
-			int dY = (outputs[1] > 1/3) ? ((outputs[1] > 2/3) ? 1 : 0): -1;
+			int k = 0;
+			for(int j = 0; j < outputs.length; j++)
+				if(outputs[j] > outputs[k])
+					k = j;
+			int dX = 0, dY = 0;
+			if(outputs[k] > 0.5)
+			switch(k) {
+			case 0: dX = 0; dY = 1; break;
+			case 1: dX = 1; dY = 1; break;
+			case 2: dX = 1; dY = 0; break;
+			case 3: dX = 1; dY = -1; break;
+			case 4: dX = 0; dY = -1; break;
+			case 5: dX = -1; dY = -1; break;
+			case 6: dX = -1; dY = 0; break;
+			case 7: dX = -1; dY = 1; break;
+			}
 
 				if(pixels[guyX+dX][guyY+dY] == Color.WHITE){
 					pixels[guyX][guyY] = Color.WHITE;
@@ -91,9 +105,6 @@ public class Init {
 		
 	}
 
-	
-	//////////////////////////////////////////////
-	//////////////////////////////////////////////
 	
 	private static void ianInit() {
 		Learner xorLearner = new Learner(new XorFitnessCalc(), 50);

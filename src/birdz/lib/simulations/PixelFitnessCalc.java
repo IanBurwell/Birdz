@@ -8,50 +8,63 @@ import birdz.lib.genetic.Individual;
 
 public class PixelFitnessCalc implements FitnessCalc{
 
-	final int FRAMES = 50;
-	int[][] pixels = new int[500][500];//1=wall, 2=guy, 3=goal
-	int guyX = 5, guyY = 5;
+	final int FRAMES = 500;
+	int[][] pixels = new int[500][500];//1=wall
+	int guyX, guyY;
 
 	public PixelFitnessCalc(){
 
+		initEnvironment();
+	}
+
+	public void initEnvironment() {
 		for(int col = 0; col < 500; col++)
 			for(int row = 0; row < 500; row++){
-				if(row == 0 || col == 0 || row == 499 || col == 499)
-					pixels[col][row] = 1;//wall
-				else if(row == 5 && col == 5)
-					pixels[col][row] = 2;//guy
-				else if(row == 495 && col == 495)
-					pixels[col][row] = 3;//goal
-				else if(row == 10 && col < 20)
-					pixels[col][row] = 1;//wall
+				if(row == 0 || col == 0 || row == 499 || col == 499 || (row == 10 && col < 20))
+					pixels[col][row] = 1;
 				else
-					pixels[col][row] = 0;//space
+					pixels[col][row] = 0;
 			}
+		guyX = 5; guyY = 5;
 	}
 
 	@Override
-	public double getFitness(Individual individual) {//TODO if it doesnt move in like 5 moves then abort
-		for(int i = 0; i < FRAMES; i++){
+	public double getFitness(Individual individual) {
+		initEnvironment();
+		boolean stuck = false;
+		for(int i = 0; i < FRAMES && !stuck; i++){
 
-			//TODO check if ontop of the point
 			double[] outputs = individual.fire(getSurroundingWalls(guyX, guyY));
 
-			int dX = (outputs[0] > 1/3) ? ((outputs[0] > 2/3) ? 1 : 0): -1;
-			int dY = (outputs[1] > 1/3) ? ((outputs[1] > 2/3) ? 1 : 0): -1;
+			int k = 0;
+			for(int j = 0; j < 8; j++)
+				if(outputs[j] > outputs[k])
+					k = j;
 
-			//System.out.println(outputs[0] + "" + outputs[1]);
-			
-			if(dX == 0 && dY == 0)
-				break;
-			
+			int dX = 0, dY = 0;
+			if(outputs[k] > 0.5)
+				switch(k) {
+				case 0: dX = 0; dY = 1; break;
+				case 1: dX = 1; dY = 1; break;
+				case 2: dX = 1; dY = 0; break;
+				case 3: dX = 1; dY = -1; break;
+				case 4: dX = 0; dY = -1; break;
+				case 5: dX = -1; dY = -1; break;
+				case 6: dX = -1; dY = 0; break;
+				case 7: dX = -1; dY = 1; break;
+				}
+			else
+				stuck = true;
+
 			if(pixels[guyX+dX][guyY+dY] == 0){
-				pixels[guyX][guyY] = 0;
-				pixels[guyX+dX][guyY+dY] = 2;
-			}else
-				break;
+				guyX += dX;
+				guyY += dY;
+			} else
+				stuck = true;;
 			
+
 		}
-		return -Math.sqrt(Math.pow(495-guyX, 2)+Math.pow(495-guyY, 2));
+		return 0 - (Math.sqrt(Math.pow(495-guyX, 2)+Math.pow(495-guyY, 2)));
 	}
 
 	private double[] getSurroundingWalls(int x, int y) {
@@ -71,7 +84,6 @@ public class PixelFitnessCalc implements FitnessCalc{
 		return walls;
 	}
 
-
 	@Override
 	public double getIdealFitness() {
 		return -2;
@@ -84,7 +96,7 @@ public class PixelFitnessCalc implements FitnessCalc{
 
 	@Override
 	public int getNumLayers() {
-		return 10;
+		return 2;
 	}
 
 	@Override
@@ -94,7 +106,7 @@ public class PixelFitnessCalc implements FitnessCalc{
 
 	@Override
 	public String displayFitness(Individual i) {
-		return String.valueOf(i.getFitness());
+		return "(" + String.valueOf(guyX) + ", " + String.valueOf(guyY) + "), distance from goal = " + String.valueOf(getFitness(i));
 	}
 
 }
