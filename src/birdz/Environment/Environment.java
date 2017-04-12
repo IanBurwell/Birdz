@@ -26,8 +26,20 @@ public class Environment extends JFrame {
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(width, height);
 		this.setVisible(true);
+		//TODO initialize env with birds n stuff
+		//TODO make learn?
 	}
 
+	public void run(int frameDelay){
+		//TODO make it give and get data from bird and move bird accordingly
+		//TODO (pt 2) preferrably make it run in a different thread that implements interrupt
+	}
+	
+	public void stop(){
+		//TODO call interrupt on thread from run function
+	}
+	
+	//only for dev use, you shouldnt be able to directly modify birds from outside class
 	public void devUpdate(Bird[] birds){
 		eDisp.update(birds);
 	}
@@ -45,11 +57,10 @@ public class Environment extends JFrame {
 	}
 	
 	
-	private class EnvDisplay extends JComponent{
+	class EnvDisplay extends JComponent{
 
 		private Bird[] birds;
 		public int birdSize = 20;
-
 
 		EnvDisplay(){
 			this(null);
@@ -80,7 +91,6 @@ public class Environment extends JFrame {
 							  3);
 			}
 		}
-
 
 
 	}

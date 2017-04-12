@@ -9,7 +9,8 @@ public class init {
 		env.waitForOpen();
 		
 		for(int i = 0; i < 3600; i++){
-			env.devUpdate(new Bird[] {new Bird(new Point(400,300), i+90)});
+			env.devUpdate(new Bird[] {new Bird(new Point(400,300), i+180),
+									new Bird(new Point(400,300), i)});
 		try {
 			Thread.sleep(1);
 		} catch (InterruptedException e) {e.printStackTrace();}
