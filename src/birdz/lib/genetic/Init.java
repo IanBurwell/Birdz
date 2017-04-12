@@ -19,7 +19,7 @@ public class Init {
 	private static void pixelInit() {//TODO make not so inefficient 
 		Learner pixelLearner = new Learner(new PixelFitnessCalc(), 20);
 		
-		for(int i = 0; i < 100; i++)
+		for(int i = 0; i < 200; i++)
 			pixelLearner.nextGeneration(true);
 		
 		
@@ -48,7 +48,6 @@ public class Init {
 		
 		for(int frame = 0; frame < 1000; frame++){
 			int guyX = 5, guyY = 5;
-
 			
 			for(int row = 0; row < pixels[0].length; row++)
 				for(int col = 0; col < pixels.length; col++)
