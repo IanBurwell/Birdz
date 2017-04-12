@@ -19,7 +19,7 @@ public class XorFitnessCalc implements FitnessCalc {
 
 	@Override
 	public double getIdealFitness() {
-		return 3.9999999;
+		return 4.0;
 	}
 
 	@Override

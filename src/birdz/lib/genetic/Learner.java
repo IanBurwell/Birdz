@@ -1,7 +1,5 @@
 package birdz.lib.genetic;
 
-import birdz.lib.simulations.*;
-
 public class Learner {
 
 	FitnessCalc fitnessCalc;
