@@ -10,14 +10,18 @@ public class Individual {
     private double fitness = 0;
     FitnessCalc fitnessCalc;
     
-    int numLayers = GeneticAlgorithm.numLayers;
-    int layerSize = GeneticAlgorithm.layerSize;
+    int numLayers;
+    int layerSize;
 
+    public Individual(){}
+    
     public void generateIndividual(FitnessCalc fitnessCalc, int numInputs) {
+    	numLayers = fitnessCalc.getNumLayers();
+    	layerSize = fitnessCalc.getLayerSize();
     	this.fitnessCalc = fitnessCalc;
     	brain = new Brain(numInputs, numLayers, layerSize);
         for (int i = 0; i < size(); i++) 
-            brain.setGene(i, HiddenLayer.getRandomWeightValue());;
+            brain.setGene(i, HiddenLayer.getRandomWeightValue());
     }
 
     public static void setDefaultGeneLength(int length) {
@@ -33,7 +37,11 @@ public class Individual {
         fitness = 0;
     }
 
-    public int size() {
+    public FitnessCalc getFitnessCalc() {
+		return fitnessCalc;
+	}
+
+	public int size() {
         return brain.getNumGenes();
     }
 
@@ -46,7 +54,7 @@ public class Individual {
     public double[] fire(double[] inputs) {
     	return brain.fire(inputs);
     }
-
+    
     @Override
     public String toString() {
         return brain.toString();
