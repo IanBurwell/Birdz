@@ -1,6 +1,6 @@
 package birdz.Environment;
 
-import birdz.Environment.Environment.EnvDisplay;
+import birdz.Environment.BirdzUI.EnvDisplay;
 
 public class DisplaySimulationThread extends Thread {
 

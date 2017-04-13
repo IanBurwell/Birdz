@@ -9,89 +9,50 @@ import javax.swing.JFrame;
 import birdz.lib.genetic.FitnessCalc;
 import birdz.lib.genetic.Individual;
 
-public class Environment extends JFrame implements FitnessCalc{
-
-	private static final long serialVersionUID = -5347268065302433404L;
+public class Environment implements FitnessCalc{
 	
-	EnvDisplay eDisp = new EnvDisplay();
-	
-	public Environment(int width, int height){
-		this("", width, height);
+	Environment(){
+		
 	}
 
-	public Environment(String title, int width, int height){
-		super("title");
-		this.add(eDisp);
-		this.setResizable(false);
-		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
-		this.setSize(width, height);
-		this.setVisible(true);
-	}
-	
-	public void runDisplay(int frameDelay){
-		//TODO make it give and get data from bird and move bird accordingly
-		//TODO (pt 2) preferrably make it run in a different thread that implements interrupt
-	}
-	
-	public void stopDisplay(){
-		//TODO call interrupt on thread from run function
-	}
-	
-	//only for dev use, you shouldnt be able to directly modify birds from outside class
-	public void devUpdate(Bird[] birds){
-		eDisp.update(birds);
+	@Override
+	public double getFitness(Individual i) {
+		// TODO Auto-generated method stub
+		return 0;
 	}
 
-	private static Object lock = new Object();
-	public void waitForOpen(){
-		synchronized(lock) {
-			while (!this.isVisible())
-				try {
-					lock.wait();
-				} catch (InterruptedException e) {
-					e.printStackTrace();
-				}
-		}
+	@Override
+	public double getIdealFitness() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNumInputs() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getNumLayers() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public int getLayerSize() {
+		// TODO Auto-generated method stub
+		return 0;
+	}
+
+	@Override
+	public String displayFitness(Individual i) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 	
 	
-	class EnvDisplay extends JComponent{
-
-		private Bird[] birds;
-		public int birdSize = 20;
-
-		EnvDisplay(){
-			this(null);
-		}
-
-		EnvDisplay(Bird[] birds){
-			if(birds != null) update(birds);
-		}
-
-		public void update(Bird[] birds){
-			this.birds = birds;
-			this.repaint();
-		}
-
-		@Override
-		protected void paintComponent(Graphics g) {
-			
-			for(Bird b : birds){
-				g.setColor(Color.BLUE);
-				g.fillOval(b.position.x-birdSize, b.position.y-birdSize, birdSize*2, birdSize*2);
-				
-				g.fillPolygon(new int[] {b.position.x+(int)(birdSize*Math.cos(Math.toRadians(b.degRotation))),
-								b.position.x+(int)(birdSize*Math.cos((Math.PI/2)+Math.toRadians(b.degRotation))),
-								b.position.x+(int)(2*birdSize*Math.cos((Math.PI/4)+Math.toRadians(b.degRotation)))}, 	  	  
-							  new int[] {b.position.y+(int)(birdSize*Math.sin(Math.toRadians(b.degRotation))),
-								b.position.y+(int)(birdSize*Math.sin((Math.PI/2)+Math.toRadians(b.degRotation))),
-								b.position.y+(int)(2*birdSize*Math.sin((Math.PI/4)+Math.toRadians(b.degRotation)))}, 
-							  3);
-			}
-		}
-
-
-	}
-
+	
+	
 }
 
