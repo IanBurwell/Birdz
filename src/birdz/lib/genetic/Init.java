@@ -2,7 +2,6 @@ package birdz.lib.genetic;
 
 
 import java.awt.Color;
-import java.awt.Point;
 
 import birdz.UI.PixelUI;
 import birdz.lib.simulations.*;
@@ -10,7 +9,6 @@ import birdz.lib.simulations.*;
 public class Init {
 
     public static void main(String[] args) {
-    	//ianInit();
     	pixelInit();
     }
 
@@ -19,8 +17,9 @@ public class Init {
 	private static void pixelInit() {//TODO make not so inefficient 
 		Learner pixelLearner = new Learner(new PixelFitnessCalc(), 20);
 		
-		for(int i = 0; i < 200; i++)
-			pixelLearner.nextGeneration(true);
+		Individual best = pixelLearner.nextGeneration(true);
+		for(int i = 0; i < 5000 && best.getFitness() < 0; i++)
+			best = pixelLearner.nextGeneration(true);
 		
 		
 		Individual bestI = pixelLearner.nextGeneration(true);
@@ -71,8 +70,11 @@ public class Init {
 			walls[6] = (pixels[guyX-1][guyY] == Color.BLACK) ? 1 : 0;
 			walls[7] = (pixels[guyX-1][guyY+1] == Color.BLACK) ? 1 : 0;
 			
-			
-			double[] outputs = bestI.fire(walls);
+			double[] inputs = new double[9];
+			for(int j = 0; j < 8; j++)
+				inputs[j] = walls[j];
+			inputs[8] = 0 - (Math.sqrt(Math.pow(495-guyX, 2)+Math.pow(495-guyY, 2)));
+			double[] outputs = bestI.fire(inputs);
 			
 			int k = 0;
 			for(int j = 0; j < outputs.length; j++)
