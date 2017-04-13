@@ -20,12 +20,12 @@ public class Bird {
 		this.degRotation = degRotation;
 	}
 	
-	double getLinearAccelleration(){
+	double getLinearAccelleration(boolean[] inputs){
 		//TODO implement
 		return 0.0;
 	}
 	
-	double getRotationalAcelleration(){
+	double getRotationalAcelleration(boolean[] inputs){
 		//TODO implement
 		return 0.0;
 	}

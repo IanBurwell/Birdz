@@ -2,11 +2,11 @@ package birdz.Environment;
 
 import birdz.Environment.Environment.EnvDisplay;
 
-public class SimulationThread extends Thread {
+public class DisplaySimulationThread extends Thread {
 
 	private EnvDisplay envDisplay;
 
-	public SimulationThread(EnvDisplay eDisp) {
+	public DisplaySimulationThread(EnvDisplay eDisp) {
 		this.envDisplay = eDisp;
 	}
 
