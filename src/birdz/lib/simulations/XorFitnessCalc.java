@@ -34,12 +34,12 @@ public class XorFitnessCalc implements FitnessCalc {
 
 	@Override
 	public int getNumLayers() {
-		return 2;
+		return 3;
 	}
 
 	@Override
 	public int getLayerSize() {
-		return 2;
+		return 3;
 	}
 
 }

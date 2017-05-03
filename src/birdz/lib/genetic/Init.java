@@ -10,19 +10,15 @@ public class Init {
 
     public static void main(String[] args) {
     	pixelInit();
+    //	ianInit();
     }
 
     
     
 	private static void pixelInit() {//TODO make not so inefficient 
 		Learner pixelLearner = new Learner(new PixelFitnessCalc(), 20);
-		
-		Individual best = pixelLearner.nextGeneration(true);
-		for(int i = 0; i < 5000 && best.getFitness() < 0; i++)
-			best = pixelLearner.nextGeneration(true);
-		
-		
-		Individual bestI = pixelLearner.nextGeneration(true);
+
+		Individual bestI = pixelLearner.learnUntilDone(true);
 		Color[][] pixels = new Color[500][500];
 		
 		for(int col = 0; col < 500; col++)

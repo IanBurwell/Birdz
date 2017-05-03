@@ -90,7 +90,7 @@ public class PixelFitnessCalc implements FitnessCalc{
 
 	@Override
 	public double getIdealFitness() {
-		return -2;
+		return 0;
 	}
 
 	@Override

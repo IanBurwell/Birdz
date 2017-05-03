@@ -20,7 +20,7 @@ public class Environment extends JFrame {
 	}
 
 	public Environment(String title, int width, int height){
-		super("title");
+		super(title);
 		this.add(eDisp);//TODO pass info
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
