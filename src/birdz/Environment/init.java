@@ -11,7 +11,7 @@ public class init {
 		
 		
 		
-		//testSpinning();
+		testSpinning();
 	}
 
 	private static void testSpinning() {
@@ -26,3 +26,8 @@ public class init {
 	}
 
 }
+
+
+
+
+
