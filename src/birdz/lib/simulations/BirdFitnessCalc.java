@@ -1,6 +1,7 @@
 package birdz.lib.simulations;
 
 import birdz.lib.environment.Bird;
+import birdz.lib.environment.Environment;
 import birdz.lib.genetic.FitnessCalc;
 import birdz.lib.genetic.Individual;
 
@@ -9,9 +10,19 @@ public class BirdFitnessCalc implements FitnessCalc { 	//TODO Make this class so
 														//from this class when in the bird class for cleanliness). Assign an individual
 	Bird[] birds;										//to each bird, and add an update function to the bird, which moves it according to nn output
 
+	Environment template;
+	
+	BirdFitnessCalc(Environment e) {
+		template = e;
+	}
+	
 	@Override
 	public double getFitness(Individual i) {
-		// TODO Auto-generated method stub
+		
+		Environment env = template.copy();
+		
+		
+		
 		return 0;
 	}
 
