@@ -33,8 +33,12 @@ public class PixelFitnessCalc implements FitnessCalc{
 		initEnvironment();
 		boolean stuck = false;
 		for(int i = 0; i < FRAMES && !stuck; i++){
-
-			double[] outputs = individual.fire(getSurroundingWalls(guyX, guyY));
+			
+			double[] inputs = new double[9];
+			for(int j = 0; j < 8; j++)
+				inputs[j] = getSurroundingWalls(guyX, guyY)[j];
+			inputs[8] = 0 - (Math.sqrt(Math.pow(495-guyX, 2)+Math.pow(495-guyY, 2)));
+			double[] outputs = individual.fire(inputs);
 
 			int k = 0;
 			for(int j = 0; j < 8; j++)
@@ -86,12 +90,12 @@ public class PixelFitnessCalc implements FitnessCalc{
 
 	@Override
 	public double getIdealFitness() {
-		return -2;
+		return 0;
 	}
 
 	@Override
 	public int getNumInputs() {
-		return 8;
+		return 9;
 	}
 
 	@Override
@@ -106,7 +110,7 @@ public class PixelFitnessCalc implements FitnessCalc{
 
 	@Override
 	public String displayFitness(Individual i) {
-		return "(" + String.valueOf(guyX) + ", " + String.valueOf(guyY) + "), distance from goal = " + String.valueOf(getFitness(i));
+		return "(" + String.valueOf(guyX) + ", " + String.valueOf(guyY) + "), distance from goal = " + String.valueOf(Math.abs(getFitness(i)));
 	}
 
 }
