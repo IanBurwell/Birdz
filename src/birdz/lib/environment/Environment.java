@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.util.ArrayList;
 import javax.swing.JComponent;
 
-public class Environment extends JComponent {
+public class Environment {
 
 	private static final long serialVersionUID = 8786961387046987953L;
 	
@@ -25,17 +25,8 @@ public class Environment extends JComponent {
 	}
 	
 	
-	
-	
-	
 	public Environment copy() {
 		return new Environment(objects); //TODO
-	}
-	
-	@Override
-	protected void paintComponent(Graphics g) {
-		for(int i = 0; i < objects.size(); i++)
-			objects.get(i).paint(g);
 	}
 	
 }
