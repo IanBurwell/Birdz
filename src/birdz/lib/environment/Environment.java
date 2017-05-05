@@ -2,7 +2,6 @@ package birdz.lib.environment;
 
 import java.awt.Graphics;
 import java.util.ArrayList;
-import javax.swing.JComponent;
 
 public class Environment {
 
@@ -24,6 +23,10 @@ public class Environment {
 		this(objects, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 	
+	public void paint(Graphics g) {
+		for(EnvObject o : objects)
+			o.paint(g);
+	}
 	
 	public Environment copy() {
 		return new Environment(objects); //TODO
