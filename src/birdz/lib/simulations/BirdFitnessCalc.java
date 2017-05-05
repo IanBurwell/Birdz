@@ -12,6 +12,8 @@ public class BirdFitnessCalc implements FitnessCalc { 	//TODO Make this class so
 	@Override
 	public double getFitness(Individual i) {
 		// TODO Auto-generated method stub
+		
+		
 		return 0;
 	}
 

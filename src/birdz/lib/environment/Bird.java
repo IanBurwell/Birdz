@@ -43,16 +43,16 @@ public class Bird extends EnvObject {
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g, int x, int y) {
 		g.setColor(color);
-		g.fillOval(position.x-size, position.y-size, size*2, size*2);
+		g.fillOval(x-size, y-size, size*2, size*2);
 
-		g.fillPolygon(new int[] {position.x+(int)(size*Math.cos(Math.toRadians(degRotation))),
-				position.x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation))),
-				position.x+(int)(2*size*Math.cos((Math.PI/4)+Math.toRadians(degRotation)))}, 	  	  
-				new int[] {position.y+(int)(size*Math.sin(Math.toRadians(degRotation))),
-						position.y+(int)(size*Math.sin((Math.PI/2)+Math.toRadians(degRotation))),
-						position.y+(int)(2*size*Math.sin((Math.PI/4)+Math.toRadians(degRotation)))}, 
+		g.fillPolygon(new int[] {x+(int)(size*Math.cos(Math.toRadians(degRotation))),
+							x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation))),
+							x+(int)(2*size*Math.cos((Math.PI/4)+Math.toRadians(degRotation)))}, 	  	  
+					  new int[] {y+(int)(size*Math.sin(Math.toRadians(degRotation))),
+						  	y+(int)(size*Math.sin((Math.PI/2)+Math.toRadians(degRotation))),
+							y+(int)(2*size*Math.sin((Math.PI/4)+Math.toRadians(degRotation)))}, 
 				3);
 
 	}
