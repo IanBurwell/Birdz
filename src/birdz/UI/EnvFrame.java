@@ -17,7 +17,7 @@ public class EnvFrame extends JFrame {
 	public EnvFrame(String title, int width, int height, Environment env){
 		super(title);
 		this.env = env;
-		//this.add(env);
+		this.add(env);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(width, height);

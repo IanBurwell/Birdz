@@ -18,6 +18,10 @@ public class Bird extends EnvObject {
 		this(0, 0, 0, DEFAULT_SIZE, DEFAULT_COLOR);
 	}
 
+	public Bird(int x, int y) {
+		this(x, y, 0, DEFAULT_SIZE, DEFAULT_COLOR);
+	}
+	
 	public Bird(int x, int y, int rot, int size, Color c) {
 		this.setPosition(x, y);
 		this.degRotation = rot;
@@ -57,4 +61,12 @@ public class Bird extends EnvObject {
 
 	}
 
+	public void moveForward(int dist){//TODO only deg of 0 works
+		translate((int)(Math.cos(Math.toRadians(degRotation))*dist*2), (int)(Math.sin(Math.toRadians(degRotation))*dist*2));
+	}
+	
+	public void rotate(int degrees){
+		degRotation += degrees;
+		degRotation %= 360;
+	}
 }

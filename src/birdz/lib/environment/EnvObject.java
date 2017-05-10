@@ -4,7 +4,7 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public abstract class EnvObject {
-	Point position;
+	Point position = new Point();
 	
 	public void translate(int x, int y) {
 		position.translate(x, x);
