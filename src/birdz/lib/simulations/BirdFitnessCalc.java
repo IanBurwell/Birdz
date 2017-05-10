@@ -18,10 +18,9 @@ public class BirdFitnessCalc implements FitnessCalc { 	//TODO Make this class so
 	
 	@Override
 	public double getFitness(Individual i) {
-		
+
 		Environment env = template.copy();
-		
-		
+			
 		
 		return 0;
 	}

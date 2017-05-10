@@ -18,6 +18,10 @@ public class Bird extends EnvObject {
 		this(0, 0, 0, DEFAULT_SIZE, DEFAULT_COLOR);
 	}
 
+	public Bird(int x, int y) {
+		this(x, y, 0, DEFAULT_SIZE, DEFAULT_COLOR);
+	}
+	
 	public Bird(int x, int y, int rot, int size, Color c) {
 		this.setPosition(x, y);
 		this.degRotation = rot;
@@ -43,18 +47,26 @@ public class Bird extends EnvObject {
 	}
 
 	@Override
-	public void paint(Graphics g) {
+	public void paint(Graphics g, int x, int y) {
 		g.setColor(color);
-		g.fillOval(position.x-size, position.y-size, size*2, size*2);
+		g.fillOval(x-size, y-size, size*2, size*2);
 
-		g.fillPolygon(new int[] {position.x+(int)(size*Math.cos(Math.toRadians(degRotation))),
-				position.x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation))),
-				position.x+(int)(2*size*Math.cos((Math.PI/4)+Math.toRadians(degRotation)))}, 	  	  
-				new int[] {position.y+(int)(size*Math.sin(Math.toRadians(degRotation))),
-						position.y+(int)(size*Math.sin((Math.PI/2)+Math.toRadians(degRotation))),
-						position.y+(int)(2*size*Math.sin((Math.PI/4)+Math.toRadians(degRotation)))}, 
+		g.fillPolygon(new int[] {x+(int)(size*Math.cos(Math.toRadians(degRotation))),
+							x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation))),
+							x+(int)(2*size*Math.cos((Math.PI/4)+Math.toRadians(degRotation)))}, 	  	  
+					  new int[] {y+(int)(size*Math.sin(Math.toRadians(degRotation))),
+						  	y+(int)(size*Math.sin((Math.PI/2)+Math.toRadians(degRotation))),
+							y+(int)(2*size*Math.sin((Math.PI/4)+Math.toRadians(degRotation)))}, 
 				3);
 
 	}
 
+	public void moveForward(int dist){//TODO only deg of 0 works
+		translate((int)(Math.cos(Math.toRadians(degRotation))*dist*2), (int)(Math.sin(Math.toRadians(degRotation))*dist*2));
+	}
+	
+	public void rotate(int degrees){
+		degRotation += degrees;
+		degRotation %= 360;
+	}
 }

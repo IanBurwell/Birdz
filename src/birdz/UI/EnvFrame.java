@@ -5,17 +5,19 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 import javax.swing.JFrame;
+import javax.swing.JPanel;
+
 import birdz.lib.environment.*;
 
 public class EnvFrame extends JFrame {
 
 	private static final long serialVersionUID = -8011140655139414918L;
-	private EnvComponent envComp;
+	private Environment env;
 	
-	public EnvFrame(String title, int width, int height, ArrayList<EnvObject> objects){
+	public EnvFrame(String title, int width, int height, Environment env){
 		super(title);
-		envComp = new EnvComponent(objects);
-		this.setContentPane(envComp);
+		this.env = env;
+		this.add(env);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		this.setSize(width, height);
@@ -33,25 +35,6 @@ public class EnvFrame extends JFrame {
 				}
 		}
 	}
-	
-	
-
-	private class EnvComponent extends JComponent{
-		
-		private ArrayList<EnvObject> objects;
-		
-		EnvComponent(ArrayList<EnvObject> objects){
-			this.objects = objects;
-		}
-		
-		@Override
-		protected void paintComponent(Graphics g) {
-			for(int i = 0; i < objects.size(); i++)
-				objects.get(i).paint(g);
-		}
-		
-	}
-	
 
 	
 }

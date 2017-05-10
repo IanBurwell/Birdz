@@ -26,7 +26,7 @@ public abstract class EnvObject {
 	
 	public abstract Point[] getHitbox();
 	
-	public abstract void paint(Graphics g);
+	public abstract void paint(Graphics g, int x, int y);
 	
 	public static boolean areTouching(EnvObject a, EnvObject b) {
 		for(Point p : a.getHitbox())
