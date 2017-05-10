@@ -30,7 +30,7 @@ public class Environment extends JComponent{
 	public void paintComponent(Graphics g) {
 		synchronized(objects){
 			for(EnvObject o : objects)
-				o.paint(g, o.position.x, o.position.y);
+				o.paint(g, o.getRoundedPosition().x, o.getRoundedPosition().y);
 		}
 	}
 
@@ -38,4 +38,6 @@ public class Environment extends JComponent{
 		return new Environment(objects); //TODO
 	}
 
+	
+	
 }

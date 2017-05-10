@@ -35,7 +35,7 @@ public class Bird extends EnvObject {
 
 	@Override
 	public boolean isTouching(Point p) {
-		return ((p.x - position.x)*(p.x - position.x) + (p.y - position.y)*(p.y - position.y) < size); //TODO include beak
+		return ((p.x - getRoundedPosition().x)*(p.x - getRoundedPosition().x) + (p.y - getRoundedPosition().y)*(p.y - getRoundedPosition().y) < size); //TODO include beak
 	}
 
 	@Override
@@ -51,18 +51,18 @@ public class Bird extends EnvObject {
 		g.setColor(color);
 		g.fillOval(x-size, y-size, size*2, size*2);
 
-		g.fillPolygon(new int[] {x+(int)(size*Math.cos(Math.toRadians(degRotation))),
-							x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation))),
-							x+(int)(2*size*Math.cos((Math.PI/4)+Math.toRadians(degRotation)))}, 	  	  
-					  new int[] {y+(int)(size*Math.sin(Math.toRadians(degRotation))),
-						  	y+(int)(size*Math.sin((Math.PI/2)+Math.toRadians(degRotation))),
-							y+(int)(2*size*Math.sin((Math.PI/4)+Math.toRadians(degRotation)))}, 
+		g.fillPolygon(new int[] {x+(int)(size*Math.cos(Math.toRadians(degRotation-45))),
+							x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation-45))),
+							x+(int)(2*size*Math.cos((Math.PI/4)+Math.toRadians(degRotation-45)))}, 	  	  
+					  new int[] {y+(int)(size*Math.sin(Math.toRadians(degRotation-45))),
+						  	y+(int)(size*Math.sin((Math.PI/2)+Math.toRadians(degRotation-45))),
+							y+(int)(2*size*Math.sin((Math.PI/4)+Math.toRadians(degRotation-45)))}, 
 				3);
 
 	}
 
 	public void moveForward(int dist){//TODO only deg of 0 works
-		translate((int)(Math.cos(Math.toRadians(degRotation))*dist*2), (int)(Math.sin(Math.toRadians(degRotation))*dist*2));
+		translate(Math.cos(Math.toRadians(degRotation))*dist*(size), Math.sin(Math.toRadians(degRotation))*dist*(size));
 	}
 	
 	public void rotate(int degrees){

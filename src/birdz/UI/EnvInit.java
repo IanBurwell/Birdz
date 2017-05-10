@@ -22,12 +22,12 @@ public class EnvInit {
 		
 		JFrame frame = new EnvFrame("--", 1920, 1080, new Environment(objects));
 
-		for(int i = 0; i < 10; i++){
+		for(int i = 0; i < 5000; i++){
 			synchronized(objects){
 				objects.add(new Bird((int)(Math.random() * 1920),
 						(int)(Math.random() * 1080),
 						(int)(Math.random() * 360),
-						(int)(Math.random() * 20),
+						(int)(Math.random() * 40),
 						new Color((int)(Math.random() * 255),
 								(int)(Math.random() * 255),
 								(int)(Math.random() * 255))
@@ -41,8 +41,8 @@ public class EnvInit {
 		} catch (InterruptedException e) {e.printStackTrace();}
 
 		for(int i = 0; i < 10000; i++){
-			moveForward(objects, 1);
-			//spin(objects, 1);
+			moveForward(objects, 1);//////
+			spin(objects, 1);
 			frame.repaint();
 			try {
 				Thread.sleep(10);
