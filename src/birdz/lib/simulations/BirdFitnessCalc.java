@@ -10,7 +10,7 @@ public class BirdFitnessCalc implements FitnessCalc { 	//TODO Make this class so
 														//from this class when in the bird class for cleanliness). Assign an individual
 	Bird[] birds;										//to each bird, and add an update function to the bird, which moves it according to nn output
 
-	Environment template;
+	final Environment template;
 	
 	BirdFitnessCalc(Environment e) {
 		template = e;
@@ -18,11 +18,7 @@ public class BirdFitnessCalc implements FitnessCalc { 	//TODO Make this class so
 	
 	@Override
 	public double getFitness(Individual i) {
-
-		Environment env = template.copy();
-			
-		
-		return 0;
+		return template.copy().getFitness(i);
 	}
 
 	@Override

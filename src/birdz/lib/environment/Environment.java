@@ -5,6 +5,8 @@ import java.util.ArrayList;
 
 import javax.swing.JComponent;
 
+import birdz.lib.genetic.Individual;
+
 public class Environment extends JComponent{
 
 	private static final long serialVersionUID = 8786961387046987953L;
@@ -36,6 +38,20 @@ public class Environment extends JComponent{
 
 	public Environment copy() {
 		return new Environment(objects); //TODO
+	}
+	
+	<T extends EnvObject> int getNum(Class<T> c) {
+		int num = 0;
+		for(EnvObject o : objects)
+			if(c.isInstance(o))
+				num++;
+		return num;
+	}
+
+	public double getFitness(Individual i) {
+		
+		
+		return getNum(Bird.class);
 	}
 
 }

@@ -7,7 +7,7 @@ public abstract class EnvObject {
 	Point position = new Point();
 	
 	public void translate(int x, int y) {
-		position.translate(x, x);
+		position.translate(x, y);
 	}
 	
 	public void setPosition(int x, int y) {
