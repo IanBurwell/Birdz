@@ -17,8 +17,8 @@ public class EnvInit {
 
 	static void spam(){
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
-		objects.add(new Bird(100, 100));
-		objects.add(new Bird(100, 200, -90, 10, Color.BLUE));
+		//objects.add(new Bird(100, 100));
+		//objects.add(new Bird(100, 200, -90, 10, Color.BLUE));
 		
 		JFrame frame = new EnvFrame("--", 1920, 1080, new Environment(objects));
 
