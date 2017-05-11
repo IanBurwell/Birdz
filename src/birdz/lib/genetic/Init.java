@@ -16,7 +16,7 @@ public class Init {
     
     
 	private static void pixelInit() {//TODO make not so inefficient 
-		Learner pixelLearner = new Learner(new PixelFitnessCalc(), 20);
+		Learner pixelLearner = new Learner(new PixelFitnessCalc(), 50);
 
 		Individual bestI = pixelLearner.learnUntilDone(true);
 		Color[][] pixels = new Color[500][500];

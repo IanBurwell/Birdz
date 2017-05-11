@@ -4,22 +4,40 @@ import java.awt.Graphics;
 import java.awt.Point;
 
 public abstract class EnvObject {
-	Point position = new Point();
+	double posX;
+	double posY;
 	
 	public void translate(int x, int y) {
-		position.translate(x, y);
+
+		posX += x;
+		posY += y;
+	}
+	
+	public void translate(double x, double y) {
+		posX += x;
+		posY += y;
 	}
 	
 	public void setPosition(int x, int y) {
-		position.setLocation(x, y);
+		posX = x; 
+		posY = y;
 	}
 	
-	public void setPosition(Point p) {
-		position.setLocation(p);
+	public void setPosition(double x, double y) {
+		posX = x; 
+		posY = y;
 	}
 	
-	public Point getPosition() {
-		return position;
+	public Point getRoundedPosition() {
+		return new Point((int)posX, (int)posY);
+	}
+	
+	public double getX(){
+		return posX;
+	}
+	
+	public double getY(){
+		return posY;
 	}
 	
 	public abstract boolean isTouching(Point p);
