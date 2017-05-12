@@ -12,8 +12,8 @@ public class Bird extends EnvObject {
 	private static final int HITBOX_POINTS = 4;
 	private static final boolean DEBUG = true;
 
-	private int fov = 45;//TODO make constructor also
-	private int sightDist = 10;
+	private int fov = 10;//TODO make constructor also
+	private int sightDist = 100;
 	private int degRotation;
 	private int size;
 	private Color color;
@@ -67,10 +67,12 @@ public class Bird extends EnvObject {
 			g.setColor(Color.LIGHT_GRAY);
 			
 			Point base = this.getRoundedPosition();
-			Point left = new Point(base.x+(int)(Math.cos(Math.toRadians(degRotation-fov))),
-					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-fov))));
-			Point right = new Point(base.x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation-fov))),
-					base.y+(int)(sightDist*Math.sin((Math.PI/2)+Math.toRadians(degRotation-fov))));
+			
+			Point left = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation-((double)fov/2)))),
+					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-((double)fov/2)))));
+			
+			Point right = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
+					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
 			
 			g.fillPolygon(new int[] {base.x, left.x, right.x}, 	  	  
 		  new int[] {base.y, left.y, right.y}, 
