@@ -1,5 +1,6 @@
 package birdz.lib.environment;
 
+import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -13,7 +14,7 @@ public class Bird extends EnvObject {
 	private static final boolean DEBUG = true;
 
 	private int fov = 45;//TODO make constructor also
-	private int sightDist = 10;
+	private int sightDist = 100;
 	private int degRotation;
 	private int size;
 	private Color color;
@@ -64,14 +65,15 @@ public class Bird extends EnvObject {
 				3);
 
 		if(DEBUG){ 
-			g.setColor(Color.LIGHT_GRAY);
-
+			g.setColor(new Color(50, 50, 50, 125));
+			//Draws FOV
 			Point base = this.getRoundedPosition();
-			Point left = new Point(base.x+(int)(Math.cos(Math.toRadians(degRotation-fov))),
-					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-fov))));
-			Point right = new Point(base.x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation-fov))),
-					base.y+(int)(sightDist*Math.sin((Math.PI/2)+Math.toRadians(degRotation-fov))));
-
+			Point left = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation-((double)fov/2)))),
+					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-((double)fov/2)))));
+			
+			Point right = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
+					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
+			
 			g.fillPolygon(new int[] {base.x, left.x, right.x}, 	  	  
 					new int[] {base.y, left.y, right.y}, 
 					3);
@@ -93,17 +95,47 @@ public class Bird extends EnvObject {
 
 	public double[] getSight(int numSections, ArrayList<EnvObject> objects){
 		double[] sight = new double[numSections];
-		Point base = this.getRoundedPosition();
-
-		Point left = new Point(base.x+(int)(Math.cos(Math.toRadians(degRotation-fov))),
-				base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-fov))));
-
-		Point right = new Point(base.x+(int)(size*Math.cos((Math.PI/2)+Math.toRadians(degRotation-fov))),
-				base.y+(int)(sightDist*Math.sin((Math.PI/2)+Math.toRadians(degRotation-fov))));
-
-
-
+		final Point base = this.getRoundedPosition();
+		final Point bLeft = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation-((double)fov/2)))),
+				base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-((double)fov/2)))));
+		final Point bRight = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
+				base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
+		
+	
+		for(int i = 0; i < numSections; i++){
+			Point cLeft = new Point((1-(i/numSections))*bLeft.x + i*bRight.x,
+					(1-(i/numSections))*bLeft.y + i*bRight.y);
+			Point cRight = new Point((1-((i+1)/numSections))*bLeft.x + i*bRight.x,
+					(1-((i+1)/numSections))*bLeft.y + i*bRight.y);//TODo test
+			
+			//TODO calc left and right points for section
+			double minDist = sightDist;//might not work
+			for(EnvObject o : objects)
+				for(Point p : o.getHitbox())
+					if(pointInTriangle(p,base,l,r) && distanceBetween(p,base) < minDist)
+						minDist = distanceBetween(p,base);
+			sight[i] = (minDist == sightDist) ? -1: minDist;
+		}		
+					
 		return sight;
 
+	}
+	
+	private double distanceBetween(Point a, Point b) {
+		return Math.sqrt(((a.x-b.x)*(a.x-b.x))+((a.y-b.y)*(a.y-b.y)));
+	}
+
+	private boolean pointInTriangle(Point point, Point a, Point b, Point c){
+		int x = point.x, y = point.y;
+		int x1 = a.x, y1 = a.y;
+		int x2 = b.x, y2 = b.y;
+		int x3 = c.x, y3 = c.y;
+
+		double ABC = Math.abs (x1 * (y2 - y3) + x2 * (y3 - y1) + x3 * (y1 - y2));
+		double ABP = Math.abs (x1 * (y2 - y) + x2 * (y - y1) + x * (y1 - y2));
+		double APC = Math.abs (x1 * (y - y3) + x * (y3 - y1) + x3 * (y1 - y));
+		double PBC = Math.abs (x * (y2 - y3) + x2 * (y3 - y) + x3 * (y - y2));
+
+		return ABP + APC + PBC == ABC;
 	}
 }
