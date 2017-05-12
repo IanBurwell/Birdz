@@ -1,6 +1,7 @@
 package birdz.lib.environment;
 
 import java.awt.Graphics;
+import java.awt.Point;
 import java.util.ArrayList;
 
 import javax.swing.JComponent;
@@ -40,7 +41,7 @@ public class Environment extends JComponent{
 		return new Environment(objects); //TODO
 	}
 	
-	<T extends EnvObject> int getNum(Class<T> c) {
+	int getNum(Class<? extends EnvObject> c) {
 		int num = 0;
 		for(EnvObject o : objects)
 			if(c.isInstance(o))
@@ -49,9 +50,17 @@ public class Environment extends JComponent{
 	}
 
 	public double getFitness(Individual i) {
-		
-		
-		return getNum(Bird.class);
+		Bird b = new Bird();
+		int j;
+		Point p = b.getRoundedPosition();
+		p.translate(1,0);	//Sketchyyyyy
+		for(j = 0; j < 100 && !b.getRoundedPosition().equals(p); j++) {
+			double[] outputs = i.fire(new double[]{1,1});
+			p = b.getRoundedPosition();
+			b.moveForward((int)outputs[0]);
+			b.rotate((int)outputs[1]);
+		}
+		return j;
 	}
 
 	

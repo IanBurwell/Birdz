@@ -69,4 +69,8 @@ public class Bird extends EnvObject {
 		degRotation += degrees;
 		degRotation %= 360;
 	}
+
+	public int getRotation() {
+		return degRotation;
+	}
 }
