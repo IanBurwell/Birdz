@@ -13,7 +13,7 @@ public class Bird extends EnvObject {
 	private static final int HITBOX_POINTS = 4;
 	private static final boolean DEBUG = true;
 
-	private int fov = 45;//TODO make constructor also
+	private int fov = 45; //TODO make constructor also
 	private int sightDist = 100;
 	private int degRotation;
 	private int size;
@@ -34,8 +34,8 @@ public class Bird extends EnvObject {
 		color = c;
 	}
 
-	public double[] getInputs() {
-		return null; //FIXME
+	public double[] getInputs(ArrayList<EnvObject> objects) {
+		return getSight(3, objects); //TODO add more inputs and maybe change quality of sight
 	}
 
 	@Override
