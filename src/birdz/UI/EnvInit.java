@@ -20,19 +20,22 @@ public class EnvInit {
 	private static void testGetSight() {
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		//objects.add(new Bird(100, 100));
-		objects.add(new Bird(300, 200, 180, 10, Color.BLUE));
+		objects.add(new Bird(150, 200, 180, 10, Color.BLUE));
 		objects.add(new Bird(100, 200, 45, 10, Color.BLACK));
 
 		
 		JFrame frame = new EnvFrame("--", 800, 500, new Environment(objects));
 		
-		for(int i = 0; i < 50; i++){
+		for(int i = 0; i < 5000; i++){
 			try {
-				Thread.sleep(1000);
+				Thread.sleep(50);
 			} catch (InterruptedException e) {e.printStackTrace();}
-			System.out.println(Arrays.toString(((Bird)objects.get(0)).getSight(3, objects)));
-			((Bird)objects.get(0)).moveForward(2);
-
+			//System.out.println(Arrays.toString(((Bird)objects.get(0)).getSight(3, objects)));
+			
+			if(((Bird)objects.get(0)).getSight(1, objects)[0] != -1){
+				((Bird)objects.get(0)).rotate(1);
+			}
+			
 			frame.repaint();
 		}
 		
