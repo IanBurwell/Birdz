@@ -2,6 +2,7 @@ package birdz.UI;
 
 import java.awt.Color;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 import javax.swing.JFrame;
 
@@ -12,7 +13,29 @@ import birdz.lib.environment.Environment;
 public class EnvInit {
 
 	public static void main(String[] args){
-		spam();
+		//spam();
+		testGetSight();
+	}
+
+	private static void testGetSight() {
+		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
+		//objects.add(new Bird(100, 100));
+		objects.add(new Bird(300, 200, 180, 10, Color.BLUE));
+		objects.add(new Bird(100, 200, 45, 10, Color.BLACK));
+
+		
+		JFrame frame = new EnvFrame("--", 800, 500, new Environment(objects));
+		
+		for(int i = 0; i < 50; i++){
+			try {
+				Thread.sleep(1000);
+			} catch (InterruptedException e) {e.printStackTrace();}
+			System.out.println(Arrays.toString(((Bird)objects.get(0)).getSight(3, objects)));
+			((Bird)objects.get(0)).moveForward(2);
+
+			frame.repaint();
+		}
+		
 	}
 
 	static void spam(){

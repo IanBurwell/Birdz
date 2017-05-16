@@ -65,15 +65,23 @@ public class Bird extends EnvObject {
 				3);
 
 		if(DEBUG){ 
-			g.setColor(new Color(50, 50, 50, 125));
 			//Draws FOV
 			Point base = this.getRoundedPosition();
 			Point left = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation-((double)fov/2)))),
 					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-((double)fov/2)))));
-			
+
 			Point right = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
 					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
-			
+
+			int numSections = 3;
+
+			for(int i = 0; i < numSections+1; i++){
+				Point cLeft = new Point((int)((1-((double)i/numSections))*left.x + ((double)i/numSections)*right.x),
+						(int)((1-((double)i/numSections))*left.y + ((double)i/numSections)*right.y));
+				g.fillOval(cLeft.x, cLeft.y, 2, 2);
+			}
+
+			g.setColor(new Color(50, 50, 50, 125));
 			g.fillPolygon(new int[] {base.x, left.x, right.x}, 	  	  
 					new int[] {base.y, left.y, right.y}, 
 					3);
@@ -100,27 +108,30 @@ public class Bird extends EnvObject {
 				base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation-((double)fov/2)))));
 		final Point bRight = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
 				base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
-		
-	
+
+
 		for(int i = 0; i < numSections; i++){
-			Point cLeft = new Point((1-(i/numSections))*bLeft.x + i*bRight.x,
-					(1-(i/numSections))*bLeft.y + i*bRight.y);
-			Point cRight = new Point((1-((i+1)/numSections))*bLeft.x + i*bRight.x,
-					(1-((i+1)/numSections))*bLeft.y + i*bRight.y);//TODo test
-			
-			//TODO calc left and right points for section
+			Point cLeft = new Point((int)((1-((double)i/numSections))*bLeft.x + ((double)i/numSections)*bRight.x),
+					(int)((1-((double)i/numSections))*bLeft.y + ((double)i/numSections)*bRight.y));
+			Point cRight = new Point((int)((1-((double)(i+1)/numSections))*bLeft.x + ((double)(i+1)/numSections)*bRight.x),
+					(int)((1-((double)(i+1)/numSections))*bLeft.y + ((double)(i+1)/numSections)*bRight.y));//TODO test
+
 			double minDist = sightDist;//might not work
-			for(EnvObject o : objects)
-				for(Point p : o.getHitbox())
-					if(pointInTriangle(p,base,l,r) && distanceBetween(p,base) < minDist)
-						minDist = distanceBetween(p,base);
-			sight[i] = (minDist == sightDist) ? -1: minDist;
+			for(EnvObject o : objects){
+				if(o == this) continue;
+				for(Point p : o.getHitbox()){
+					Point absP = new Point(o.getRoundedPosition().x+p.x, o.getRoundedPosition().y+p.y);
+					if(pointInTriangle(absP,base,cLeft,cRight) && distanceBetween(absP,base) < minDist)//TODO was returning 10, 0 for hitbox point
+						minDist = distanceBetween(absP,base);
+				}
+			}
+			sight[i] = (minDist == sightDist) ? -1 : minDist;
 		}		
-					
+
 		return sight;
 
 	}
-	
+
 	private double distanceBetween(Point a, Point b) {
 		return Math.sqrt(((a.x-b.x)*(a.x-b.x))+((a.y-b.y)*(a.y-b.y)));
 	}
