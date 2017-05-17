@@ -48,7 +48,15 @@ public class Bird extends EnvObject {
 	}
 	
 	public double[] getInputs(ArrayList<EnvObject> objects) {
-		return getSight(3, objects); //TODO add more inputs and maybe change quality of sight
+		double[] sight = getSight(3, objects);
+		double[] inputs = new double[sight.length + 1];
+		
+		inputs[0] = speed;
+		for(int i = 1; i < inputs.length; i++){
+			inputs[i] = sight[i-1];
+		}
+		
+		return inputs; //TODO add more inputs and maybe change quality of sight
 	}
 
 	@Override
