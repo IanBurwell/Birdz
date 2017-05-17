@@ -15,10 +15,14 @@ public class Bird extends EnvObject {
 
 	private int fov = 45; //TODO make constructor also
 	private int sightDist = 100;
-	private int degRotation;
+	
 	private int size;
 	private Color color;
-
+	
+	private double degRotation;
+	private double speed = 0;
+	//TODO make rotational velocity
+	
 	public Bird() {
 		this(0, 0, 0, DEFAULT_SIZE, DEFAULT_COLOR);
 	}
@@ -34,6 +38,15 @@ public class Bird extends EnvObject {
 		color = c;
 	}
 
+	@Override
+	public void update(){
+		moveForward(speed);
+	}
+	
+	public double getSpeed(){
+		return speed;
+	}
+	
 	public double[] getInputs(ArrayList<EnvObject> objects) {
 		return getSight(3, objects); //TODO add more inputs and maybe change quality of sight
 	}
@@ -88,16 +101,16 @@ public class Bird extends EnvObject {
 		}
 	}
 
-	public void moveForward(int dist){
+	public void moveForward(double dist){
 		translate(Math.cos(Math.toRadians(degRotation))*dist*(size), Math.sin(Math.toRadians(degRotation))*dist*(size));
 	}
 
-	public void rotate(int degrees){
+	public void rotate(double degrees){
 		degRotation += degrees;
 		degRotation %= 360;
 	}
 
-	public int getRotation() {
+	public double getRotation() {
 		return degRotation;
 	}
 
@@ -116,7 +129,7 @@ public class Bird extends EnvObject {
 			Point cRight = new Point((int)((1-((double)(i+1)/numSections))*bLeft.x + ((double)(i+1)/numSections)*bRight.x),
 					(int)((1-((double)(i+1)/numSections))*bLeft.y + ((double)(i+1)/numSections)*bRight.y));//TODO test
 
-			double minDist = sightDist;//might not work
+			double minDist = sightDist;
 			for(EnvObject o : objects){
 				if(o == this) continue;
 				for(Point p : o.getHitbox()){
