@@ -2,7 +2,7 @@ package birdz.lib.genetic;
 /**
  * An object that facilitates the learning process of a population given a {@code FitnessCalc} object
  * @author Ian
- *
+ * 
  */
 public class Learner {
 
@@ -14,7 +14,7 @@ public class Learner {
 	 * @param fitnessCalc A {@code FitnessCalc} object upon which to base the learning of the population 
 	 * @param popSize The size of the population
 	 */
-	Learner(FitnessCalc fitnessCalc, int popSize) {
+	public Learner(FitnessCalc fitnessCalc, int popSize) {
 		this.fitnessCalc = fitnessCalc;
 		population = new Population(popSize, true, fitnessCalc, fitnessCalc.getNumInputs());
 	}
@@ -24,7 +24,7 @@ public class Learner {
 	 * @param display Set to true to display the fittest {@code Individual} of each generation in the console
 	 * @return The {@code Individual} that has achieved the target fitness
 	 */
-	Individual learnUntilDone(boolean display) {
+	public Individual learnUntilDone(boolean display) {
 		while (population.getFittest().getFitness() < fitnessCalc.getIdealFitness()) {
 			generation++;
 			if(display) System.out.println("Generation: " + generation + " Fittest: \n" + fitnessCalc.displayFitness(population.getFittest()));
@@ -41,7 +41,7 @@ public class Learner {
 	 * @param display Set to true to display the fittest {@code Individual} in the console
 	 * @return The fittest {@code Individual} in the population
 	 */
-	Individual nextGeneration(boolean display) {
+	public Individual nextGeneration(boolean display) {
 		generation++;
 		population = GeneticAlgorithm.evolvePopulation(population, fitnessCalc);
 		if(display) System.out.println("Generation: " + generation + " Fittest: \n" + fitnessCalc.displayFitness(population.getFittest()));
