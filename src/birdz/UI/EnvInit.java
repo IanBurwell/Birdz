@@ -9,6 +9,7 @@ import javax.swing.JFrame;
 import birdz.lib.environment.Bird;
 import birdz.lib.environment.EnvObject;
 import birdz.lib.environment.Environment;
+import birdz.lib.environment.Rock;
 
 public class EnvInit {
 
@@ -21,7 +22,7 @@ public class EnvInit {
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		//objects.add(new Bird(100, 100));
 		objects.add(new Bird(150, 200, 180, 10, Color.BLUE));
-		objects.add(new Bird(100, 200, 45, 10, Color.BLACK));
+		objects.add(new Rock(100,200));
 
 		
 		JFrame frame = new EnvFrame("--", 800, 500, new Environment(objects));

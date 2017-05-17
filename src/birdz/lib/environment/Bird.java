@@ -61,7 +61,7 @@ public class Bird extends EnvObject {
 
 	@Override
 	public boolean isTouching(Point p) {
-		return ((p.x - getRoundedPosition().x)*(p.x - getRoundedPosition().x) + (p.y - getRoundedPosition().y)*(p.y - getRoundedPosition().y) < size); //TODO include beak
+		return ((p.x - getRoundedPosition().x)*(p.x - getRoundedPosition().x) + (p.y - getRoundedPosition().y)*(p.y - getRoundedPosition().y) < size*size); //TODO include beak
 	}
 
 	@Override
