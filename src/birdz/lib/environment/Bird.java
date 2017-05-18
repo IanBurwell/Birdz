@@ -43,6 +43,10 @@ public class Bird extends EnvObject {
 		moveForward(speed);
 	}
 	
+	public void accelerate(double acceleration){
+		speed += acceleration;
+	}
+	
 	public double getSpeed(){
 		return speed;
 	}

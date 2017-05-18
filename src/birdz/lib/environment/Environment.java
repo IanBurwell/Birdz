@@ -3,6 +3,7 @@ package birdz.lib.environment;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import javax.swing.JComponent;
 
@@ -14,6 +15,7 @@ public class Environment extends JComponent{
 
 	private ArrayList<EnvObject> objects;
 	private int width, height;
+	private HashMap<Bird, Individual> iMap = null;
 
 	private static final int DEFAULT_WIDTH = 500;
 	private static final int DEFAULT_HEIGHT = 500;
@@ -24,8 +26,26 @@ public class Environment extends JComponent{
 		this.height = height;
 	}
 
+	public Environment(HashMap<Bird, Individual> hm, ArrayList<EnvObject> objects) {
+		this(objects, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+		iMap = hm;
+	}
+
 	public Environment(ArrayList<EnvObject> objects) {
 		this(objects, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	}
+
+	
+	public void updateIndividuals(){
+		if(iMap == null)return;
+
+		for(EnvObject o : objects)
+			if(o instanceof Bird && iMap.containsKey(o)){
+				Bird b = (Bird)o;
+				double[] outputs = iMap.get(o).fire(b.getInputs(objects));
+				b.accelerate(outputs[0]);
+				b.rotate(outputs[1]);
+			}
 	}
 
 	@Override
@@ -37,9 +57,9 @@ public class Environment extends JComponent{
 	}
 
 	public Environment copy() {
-		return new Environment(objects); //TODO
+		return new Environment(iMap, objects); //TODO
 	}
-	
+
 	int getNum(Class<? extends EnvObject> c) {
 		int num = 0;
 		for(EnvObject o : objects)
@@ -62,6 +82,6 @@ public class Environment extends JComponent{
 		return j;
 	}
 
-	
-	
+
+
 }
