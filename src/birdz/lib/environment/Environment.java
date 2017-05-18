@@ -38,7 +38,10 @@ public class Environment extends JComponent{
 	}
 
 	public Environment copy() {
-		return new Environment(objects); //TODO
+		ArrayList<EnvObject> objectsCopy = new ArrayList<EnvObject>();
+		for(EnvObject o : objects)
+			objectsCopy.add(o.copy());
+		return new Environment(objectsCopy); //TODO doesn't copy objects; this is passing a reference to the objects array
 	}
 	
 	int getNum(Class<? extends EnvObject> c) {
@@ -54,13 +57,23 @@ public class Environment extends JComponent{
 		int j;
 		Point p = b.getRoundedPosition();
 		p.translate(1,0);	//Sketchyyyyy
-		for(j = 0; j < 100 && !b.getRoundedPosition().equals(p); j++) {
+		for(j = 0; j < 100 && !b.getRoundedPosition().equals(p); j++) {				//TODO make bird find rock...
 			double[] outputs = i.fire(new double[]{1,1});
 			p = b.getRoundedPosition();
 			b.moveForward((int)outputs[0]);
 			b.rotate((int)outputs[1]);
 		}
 		return j;
+	}
+	
+	public double getFitness2(Individual i) {
+		Bird b = new Bird();
+		double[] outputs;
+		for(int j = 0; j < 100 && b.getInputs(objects)[0] == -1; j++) {
+			outputs = i.fire(b.getInputs(objects));
+			
+		}
+			
 	}
 
 	

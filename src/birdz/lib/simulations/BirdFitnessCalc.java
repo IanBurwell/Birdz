@@ -12,7 +12,7 @@ public class BirdFitnessCalc implements FitnessCalc { 	//TODO Make this class so
 
 	final Environment template;
 	
-	BirdFitnessCalc(Environment e) {
+	public BirdFitnessCalc(Environment e) {
 		template = e;
 	}
 	
