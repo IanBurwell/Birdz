@@ -20,6 +20,7 @@ public class EnvFrame extends JFrame {
 		this.add(env);
 		this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
+		//TODO add listener to stop threads when window closed
 		this.setSize(width, height);
 		this.setVisible(true);
 	}

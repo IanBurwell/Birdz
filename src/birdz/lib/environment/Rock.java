@@ -30,4 +30,9 @@ public class Rock extends EnvObject {
 		g.fillOval(x-radius, y-radius, radius*2, radius*2);
 	}
 
+	@Override
+	public EnvObject copy() {
+		return new Rock(getRoundedPosition().x, getRoundedPosition().y);
+	}
+
 }

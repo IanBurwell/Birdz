@@ -40,7 +40,7 @@ public class BirdFitnessCalc implements FitnessCalc {
 	@Override
 	public String displayFitness(Individual i) {
 		double fitness = getFitness(i);
-		return (fitness == -100) ? "did not reach target" : ("reached target after " + fitness + " frames");
+		return (fitness <= -1000) ? "did not reach target" : ("reached target after " + fitness + " frames");
 	}
 
 }

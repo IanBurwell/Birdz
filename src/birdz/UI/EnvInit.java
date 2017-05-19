@@ -3,6 +3,7 @@ package birdz.UI;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.Arrays;
+import java.util.HashMap;
 
 import javax.swing.JFrame;
 
@@ -10,6 +11,7 @@ import birdz.lib.environment.Bird;
 import birdz.lib.environment.EnvObject;
 import birdz.lib.environment.Environment;
 import birdz.lib.environment.Rock;
+import birdz.lib.genetic.Individual;
 import birdz.lib.genetic.Learner;
 import birdz.lib.simulations.BirdFitnessCalc;
 
@@ -25,7 +27,8 @@ public class EnvInit {
 	
 	static void test(){
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
-		objects.add(new Bird(150, 200, 180, 10, Color.BLUE));
+		Bird bird = new Bird(150, 200, 0, 10, Color.BLUE);
+		objects.add(bird);
 		objects.add(new Rock(100,200));
 		Environment env = new Environment(objects);		
 		//JFrame frame = new EnvFrame("--", 800, 500, env);
@@ -34,15 +37,21 @@ public class EnvInit {
 		Learner l = new Learner(fc, 6);
 		
 		for(int i = 0; i < 100; i++)
-			l.nextGeneration(false);
+			l.nextGeneration(true);
 	
+		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();
+		hm.put(bird, l.nextGeneration(false));
 		
-		l.nextGeneration(false); //fittest
-		//TODO assign individual to bird in environment
+		env = new Environment(hm, objects); //fittest
 		
 		
-		//JFrame frame = new EnvFrame("--", 800, 500, env);
-
+		EnvFrame frame = new EnvFrame("--", 800, 500, env);
+		try {
+			Thread.sleep(5000);
+		} catch (InterruptedException e) {e.printStackTrace();}
+		
+		env.runEnvironment(100);
+		
 	}
 	
 	

@@ -3,6 +3,7 @@ package birdz.lib.environment;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.HashMap;
 
 import javax.swing.JComponent;
@@ -44,6 +45,7 @@ public class Environment extends JComponent{
 			if(o instanceof Bird && iMap.containsKey(o)){
 				Bird b = (Bird)o;
 				double[] outputs = iMap.get(o).fire(b.getInputs(objects));
+				System.out.println(Arrays.toString(outputs));
 				b.accelerate(outputs[0]);
 				b.rotate(outputs[1]);
 			}
@@ -92,7 +94,7 @@ public class Environment extends JComponent{
 		Bird b = new Bird();
 		double[] outputs;
 		double j;
-		for(j = 0; j < 100 && b.getInputs(objects)[0] == -1; j++) {
+		for(j = 0; j < 1000 && b.getInputs(objects)[2] == -1; j++) {
 			outputs = i.fire(b.getInputs(objects));
 			b.accelerate(outputs[0]);
 			b.rotate(outputs[1]);
@@ -123,7 +125,8 @@ public class Environment extends JComponent{
 
 		@Override
 		public void run() {
-			while(!interrupted()){
+			//while(!interrupted()){
+			for(int i = 0; i < 1000; i++){	
 				Environment.this.updateIndividuals();//TODO make it update pos n stuffs
 				try {
 					sleep(delay);
