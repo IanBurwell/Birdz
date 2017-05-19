@@ -48,6 +48,8 @@ public abstract class EnvObject {
 	
 	public void update(){}
 	
+	public abstract EnvObject copy();
+	
 	public static boolean areTouching(EnvObject a, EnvObject b) {
 		for(Point p : a.getHitbox())
 			if(b.isTouching(p)) return true;

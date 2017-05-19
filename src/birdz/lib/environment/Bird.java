@@ -31,7 +31,7 @@ public class Bird extends EnvObject {
 		this(x, y, 0, DEFAULT_SIZE, DEFAULT_COLOR);
 	}
 
-	public Bird(int x, int y, int rot, int size, Color c) {
+	public Bird(int x, int y, double rot, int size, Color c) {
 		this.setPosition(x, y);
 		this.degRotation = rot;
 		this.size = size;
@@ -39,7 +39,7 @@ public class Bird extends EnvObject {
 	}
 
 	@Override
-	public void update(){
+	public void update(){ //TODO rotational velocity
 		moveForward(speed);
 	}
 	
@@ -173,5 +173,10 @@ public class Bird extends EnvObject {
 		double PBC = Math.abs (x * (y2 - y3) + x2 * (y3 - y) + x3 * (y - y2));
 
 		return ABP + APC + PBC == ABC;
+	}
+
+	@Override
+	public EnvObject copy() {
+		return new Bird(getRoundedPosition().x, getRoundedPosition().y, degRotation, size, color);
 	}
 }

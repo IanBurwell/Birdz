@@ -59,7 +59,10 @@ public class Environment extends JComponent{
 	}
 
 	public Environment copy() {
-		return new Environment(iMap, objects); //TODO
+		ArrayList<EnvObject> objectsCopy = new ArrayList<EnvObject>();
+		for(EnvObject o : objects)
+			objectsCopy.add(o.copy());
+		return new Environment(objectsCopy); //TODO
 	}
 
 	int getNum(Class<? extends EnvObject> c) {
@@ -70,18 +73,32 @@ public class Environment extends JComponent{
 		return num;
 	}
 
-	public double getFitness(Individual i) {
+	@Deprecated
+	public double getFitness2(Individual i) {
 		Bird b = new Bird();
 		int j;
 		Point p = b.getRoundedPosition();
 		p.translate(1,0);	//Sketchyyyyy
-		for(j = 0; j < 100 && !b.getRoundedPosition().equals(p); j++) {
+		for(j = 0; j < 100 && !b.getRoundedPosition().equals(p); j++) {				//TODO make bird find rock...
 			double[] outputs = i.fire(new double[]{1,1});
 			p = b.getRoundedPosition();
 			b.moveForward((int)outputs[0]);
 			b.rotate((int)outputs[1]);
 		}
 		return j;
+	}
+	
+	public double getFitness(Individual i) {
+		Bird b = new Bird();
+		double[] outputs;
+		double j;
+		for(j = 0; j < 100 && b.getInputs(objects)[0] == -1; j++) {
+			outputs = i.fire(b.getInputs(objects));
+			b.accelerate(outputs[0]);
+			b.rotate(outputs[1]);
+			b.update();
+		}
+		return 0-j;
 	}
 
 	public void runEnvironment(int delay){
