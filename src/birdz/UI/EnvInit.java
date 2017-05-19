@@ -10,14 +10,60 @@ import birdz.lib.environment.Bird;
 import birdz.lib.environment.EnvObject;
 import birdz.lib.environment.Environment;
 import birdz.lib.environment.Rock;
+import birdz.lib.genetic.Learner;
+import birdz.lib.simulations.BirdFitnessCalc;
 
 public class EnvInit {
 
 	public static void main(String[] args){
 		//spam();
-		testGetSight();
+		//testGetSight();
+		test();
 	}
 
+	
+	
+	static void test(){
+		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
+		objects.add(new Bird(150, 200, 180, 10, Color.BLUE));
+		objects.add(new Rock(100,200));
+		Environment env = new Environment(objects);		
+		//JFrame frame = new EnvFrame("--", 800, 500, env);
+
+		BirdFitnessCalc fc = new BirdFitnessCalc(env);
+		Learner l = new Learner(fc, 6);
+		
+		for(int i = 0; i < 100; i++)
+			l.nextGeneration(false);
+	
+		
+		l.nextGeneration(false); //fittest
+		//TODO assign individual to bird in environment
+		
+		
+		//JFrame frame = new EnvFrame("--", 800, 500, env);
+
+	}
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
 	private static void testGetSight() {
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		//objects.add(new Bird(100, 100));
@@ -41,7 +87,6 @@ public class EnvInit {
 		}
 		
 	}
-
 	static void spam(){
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		//objects.add(new Bird(100, 100));

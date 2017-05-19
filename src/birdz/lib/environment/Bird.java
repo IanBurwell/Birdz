@@ -39,8 +39,12 @@ public class Bird extends EnvObject {
 	}
 
 	@Override
-	public void update(){
+	public void update(){ //TODO rotational velocity
 		moveForward(speed);
+	}
+	
+	public void accelerate(double acceleration){
+		speed += acceleration;
 	}
 	
 	public double getSpeed(){
