@@ -16,6 +16,7 @@ public class Environment extends JComponent{
 	private ArrayList<EnvObject> objects;
 	private int width, height;
 	private HashMap<Bird, Individual> iMap = null;
+	private EnvThread envThread = new EnvThread();
 
 	private static final int DEFAULT_WIDTH = 500;
 	private static final int DEFAULT_HEIGHT = 500;
@@ -35,7 +36,7 @@ public class Environment extends JComponent{
 		this(objects, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
-	
+
 	public void updateIndividuals(){
 		if(iMap == null)return;
 
@@ -46,6 +47,7 @@ public class Environment extends JComponent{
 				b.accelerate(outputs[0]);
 				b.rotate(outputs[1]);
 			}
+		this.repaint();
 	}
 
 	@Override
@@ -82,6 +84,36 @@ public class Environment extends JComponent{
 		return j;
 	}
 
+	public void runEnvironment(int delay){
+		envThread.startDelay(delay);
+	}
 
+	public void stopEnvironment(int delay){
+		envThread.interrupt();
+	}
+	
+	private class EnvThread extends Thread{
+		int delay = 10;
+
+		EnvThread(){
+			//Environment.this;
+		}
+
+		void startDelay(int delay){
+			this.delay = delay;
+			this.start();
+		}
+
+		@Override
+		public void run() {
+			while(!interrupted()){
+				Environment.this.updateIndividuals();//TODO make it update pos n stuffs
+				try {
+					sleep(delay);
+				} catch (InterruptedException e) {e.printStackTrace();}
+			}
+		}
+
+	}
 
 }
