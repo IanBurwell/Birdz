@@ -36,7 +36,7 @@ public class EnvInit {
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 1000; i++)
+		for(int i = 0; i < 2000; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();
@@ -51,7 +51,7 @@ public class EnvInit {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {e.printStackTrace();}
 		
-		env.runEnvironment(100);//TODO make accelleration work at all
+		env.runEnvironment(20);//TODO make accelleration work at all
 		
 	}
 	

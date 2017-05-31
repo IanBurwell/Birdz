@@ -13,6 +13,15 @@ class SigmoidFunction implements ActivationFunction {
 	
 }
 
+class TanhFunction implements ActivationFunction {
+
+	@Override
+	public double getValue(double input) {
+		return Math.tanh(input);
+	}
+	
+}
+
 class StepFunction implements ActivationFunction {
 
 	@Override

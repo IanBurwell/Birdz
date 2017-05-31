@@ -5,7 +5,7 @@ public class Brain {
 	HiddenLayer[] layers;
 	double[] inputs;
 	private int numInputs;
-	static final ActivationFunction activationFunction = new SigmoidFunction();
+	static final ActivationFunction activationFunction = new TanhFunction();
 
 	public Brain(int numInputs, int numLayers, int layerSize) {
 		this.numInputs = numInputs;

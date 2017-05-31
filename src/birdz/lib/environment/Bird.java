@@ -1,6 +1,5 @@
 package birdz.lib.environment;
 
-import java.awt.AlphaComposite;
 import java.awt.Color;
 import java.awt.Graphics;
 import java.awt.Point;
@@ -44,7 +43,10 @@ public class Bird extends EnvObject {
 	}
 	
 	public void accelerate(double acceleration){
-		speed += acceleration;
+		if(speed + acceleration > 0) speed += acceleration;
+		else speed = 0;
+		
+		if(acceleration > 1)System.out.println(acceleration);
 	}
 	
 	public double getSpeed(){
