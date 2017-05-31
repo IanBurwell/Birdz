@@ -46,8 +46,9 @@ public class Environment extends JComponent{
 				Bird b = (Bird)o;
 				double[] outputs = iMap.get(o).fire(b.getInputs(objects));
 				System.out.println(Arrays.toString(outputs));
-				b.accelerate(outputs[0]);
-				b.rotate(outputs[1]);
+				b.accelerate((outputs[0]-0.5)*2);
+				b.rotate((outputs[1]-0.5)*2);
+				b.update();
 			}
 		this.repaint();
 	}
@@ -90,17 +91,30 @@ public class Environment extends JComponent{
 		return j;
 	}
 	
+	/**
+	 * should make first bird in objects find an obstacle
+	 * @param i
+	 * @return
+	 */
 	public double getFitness(Individual i) {
 		Bird b = new Bird();
+		for(EnvObject e : objects)
+			if(e instanceof Bird) b = (Bird)e;
+		
 		double[] outputs;
 		double j;
 		for(j = 0; j < 1000 && b.getInputs(objects)[2] == -1; j++) {
+			//System.out.println(Arrays.toString(b.getInputs(objects)));
 			outputs = i.fire(b.getInputs(objects));
-			b.accelerate(outputs[0]);
-			b.rotate(outputs[1]);
+			b.accelerate((outputs[0]-0.5)*2);
+			b.rotate((outputs[1]-0.5)*2);
 			b.update();
 		}
-		return 0-j;
+		EnvObject obj = objects.get(1);
+		for(EnvObject e : objects)
+			if(!(e instanceof Bird)) obj = e;
+		
+		return (0-j) - b.getRoundedPosition().distance(obj.getRoundedPosition());
 	}
 
 	public void runEnvironment(int delay){

@@ -27,7 +27,7 @@ public class EnvInit {
 	
 	static void test(){
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
-		Bird bird = new Bird(150, 200, 0, 10, Color.BLUE);
+		Bird bird = new Bird(300, 300, 0, 10, Color.BLUE);
 		objects.add(bird);
 		objects.add(new Rock(100,200));
 		Environment env = new Environment(objects);		
@@ -36,11 +36,12 @@ public class EnvInit {
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 100; i++)
+		for(int i = 0; i < 1000; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();
 		hm.put(bird, l.nextGeneration(false));
+		
 		
 		env = new Environment(hm, objects); //fittest
 		
@@ -50,7 +51,7 @@ public class EnvInit {
 			Thread.sleep(5000);
 		} catch (InterruptedException e) {e.printStackTrace();}
 		
-		env.runEnvironment(100);
+		env.runEnvironment(100);//TODO make accelleration work at all
 		
 	}
 	

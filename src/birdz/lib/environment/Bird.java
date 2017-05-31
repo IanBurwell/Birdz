@@ -20,7 +20,7 @@ public class Bird extends EnvObject {
 	private Color color;
 	
 	private double degRotation;
-	private double speed = 0;
+	private double speed;
 	//TODO make rotational velocity
 	
 	public Bird() {
