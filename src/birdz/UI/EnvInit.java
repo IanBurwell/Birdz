@@ -38,7 +38,7 @@ public class EnvInit {
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 1000; i++)
+		for(int i = 0; i < 3000; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();

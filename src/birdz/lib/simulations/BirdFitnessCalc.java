@@ -24,7 +24,7 @@ public class BirdFitnessCalc implements FitnessCalc {
 
 	@Override
 	public int getNumInputs() {
-		return 0;
+		return 4;
 	}
 
 	@Override
