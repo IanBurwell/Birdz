@@ -20,7 +20,7 @@ public class EnvFrame extends JFrame {
 	private Environment env;
 	public JButton startButton = new JButton();
 	
-	public EnvFrame(String title, int width, int height, Environment env){
+	public EnvFrame(String title, Environment env){
 		super(title);
 		
 		this.setLayout(new FlowLayout());	
@@ -36,7 +36,7 @@ public class EnvFrame extends JFrame {
 		//this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//TODO add listener to stop threads when window closed
-		this.setSize(width, height);
+		this.setSize(env.getPreferredSize().width, env.getPreferredSize().height+40);
 		this.setVisible(true);
 	}
 	
