@@ -99,8 +99,9 @@ public class Environment extends JComponent{
 			//System.out.println(Arrays.toString(b.getInputs(objects)));
 			outputs = i.fire(b.getInputs(objects));
 			updateBird(outputs, b);
-			score -= Math.pow(b.getRoundedPosition().distance(obj.getRoundedPosition()),2);
 		}
+		score -= Math.pow(b.getRoundedPosition().distance(obj.getRoundedPosition()),2);
+		score -= b.getSpeed();
 		return score;
 	}
 

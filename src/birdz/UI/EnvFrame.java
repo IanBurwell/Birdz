@@ -30,13 +30,11 @@ public class EnvFrame extends JFrame {
 		this.add(env);
 		
 		startButton.setText("Start");
-		//startButton.setEnabled(false);
 		this.add(startButton);
 		
-		//this.setResizable(false);
 		this.setDefaultCloseOperation(EXIT_ON_CLOSE);
 		//TODO add listener to stop threads when window closed
-		this.setSize(env.getPreferredSize().width, env.getPreferredSize().height+40);
+		this.setSize(env.getPreferredSize().width, env.getPreferredSize().height+100);
 		this.setVisible(true);
 	}
 	
