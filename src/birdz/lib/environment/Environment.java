@@ -1,5 +1,6 @@
 package birdz.lib.environment;
 
+import java.awt.Dimension;
 import java.awt.Graphics;
 import java.awt.Point;
 import java.util.ArrayList;
@@ -26,15 +27,13 @@ public class Environment extends JComponent{
 		this.objects = objects;
 		this.width = width;
 		this.height = height;
+		this.setPreferredSize(new Dimension(width, height));
+		this.setMinimumSize(new Dimension(width, height));
 	}
-
-	public Environment(HashMap<Bird, Individual> hm, ArrayList<EnvObject> objects) {
-		this(objects, DEFAULT_WIDTH, DEFAULT_HEIGHT);
+	
+	public Environment(HashMap<Bird, Individual> hm, ArrayList<EnvObject> objects, int width, int height) {
+		this(objects, width, height);
 		iMap = hm;
-	}
-
-	public Environment(ArrayList<EnvObject> objects) {
-		this(objects, DEFAULT_WIDTH, DEFAULT_HEIGHT);
 	}
 
 
@@ -45,14 +44,18 @@ public class Environment extends JComponent{
 			if(o instanceof Bird && iMap.containsKey(o)){
 				Bird b = (Bird)o;
 				double[] outputs = iMap.get(o).fire(b.getInputs(objects));		//TODO consolidate code with getFitness function
-				System.out.println(Arrays.toString(outputs));
-				b.accelerate(outputs[0]);
-				b.rotate(outputs[1]*10);
-				b.update();
+				updateBird(outputs, b);
 			}
 		this.repaint();
 	}
 
+	private void updateBird(double[] outputs, Bird b){
+		//System.out.println(Arrays.toString(outputs));
+		b.accelerate(outputs[0]);
+		b.rotate(outputs[1]*10);
+		b.update();
+	}
+	
 	@Override
 	public void paintComponent(Graphics g) {
 		synchronized(objects){
@@ -65,7 +68,7 @@ public class Environment extends JComponent{
 		ArrayList<EnvObject> objectsCopy = new ArrayList<EnvObject>();
 		for(EnvObject o : objects)
 			objectsCopy.add(o.copy());
-		return new Environment(objectsCopy); //TODO
+		return new Environment(objectsCopy, width, height); //TODO
 	}
 
 	int getNum(Class<? extends EnvObject> c) {
@@ -74,21 +77,6 @@ public class Environment extends JComponent{
 			if(c.isInstance(o))
 				num++;
 		return num;
-	}
-
-	@Deprecated
-	public double getFitness2(Individual i) {
-		Bird b = new Bird();
-		int j;
-		Point p = b.getRoundedPosition();
-		p.translate(1,0);	//Sketchyyyyy
-		for(j = 0; j < 100 && !b.getRoundedPosition().equals(p); j++) {				//TODO make bird find rock...
-			double[] outputs = i.fire(new double[]{1,1});
-			p = b.getRoundedPosition();
-			b.moveForward((int)outputs[0]);
-			b.rotate((int)outputs[1]);
-		}
-		return j;
 	}
 	
 	/**
@@ -107,12 +95,10 @@ public class Environment extends JComponent{
 		EnvObject obj = objects.get(1);
 		for(EnvObject e : objects)
 			if(!(e instanceof Bird)) obj = e;
-		for(j = 0; j < 1000 && b.getInputs(objects)[2] == -1; j++) {
+		for(j = 0; j < 1000; j++) {
 			//System.out.println(Arrays.toString(b.getInputs(objects)));
 			outputs = i.fire(b.getInputs(objects));
-			b.accelerate(outputs[0]);
-			b.rotate(outputs[1] * 10);
-			b.update();
+			updateBird(outputs, b);
 			score -= Math.pow(b.getRoundedPosition().distance(obj.getRoundedPosition()),2);
 		}
 		return score;

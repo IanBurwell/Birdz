@@ -152,7 +152,7 @@ public class Bird extends EnvObject {
 						minDist = distanceBetween(absP,base);
 				}
 			}
-			sight[i] = (minDist == sightDist) ? -1 : minDist;
+			sight[i] = (minDist == sightDist) ? sightDist : minDist;
 		}		
 
 		return sight;

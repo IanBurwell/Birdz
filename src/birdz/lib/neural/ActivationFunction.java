@@ -30,3 +30,12 @@ class StepFunction implements ActivationFunction {
 	}
 	
 }
+
+class RELUFunction implements ActivationFunction {
+
+	@Override
+	public double getValue(double input) {
+		return Math.max(0, input);
+	}
+	
+}

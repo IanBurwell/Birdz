@@ -1,6 +1,8 @@
 package birdz.UI;
 
 import java.awt.Color;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.HashMap;
@@ -24,34 +26,39 @@ public class EnvInit {
 	}
 
 	
-	
+	static Environment env;
 	static void test(){
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		Bird bird = new Bird(300, 300, 0, 10, Color.BLUE);
 		objects.add(bird);
 		objects.add(new Rock(100,200));
-		Environment env = new Environment(objects);		
+		env = new Environment(objects, 800, 500);		
 		//JFrame frame = new EnvFrame("--", 800, 500, env);
 
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 2000; i++)
+		for(int i = 0; i < 1000; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();
 		hm.put(bird, l.nextGeneration(false));
 		
-		
-		env = new Environment(hm, objects); //fittest
+		env = new Environment(hm, objects, 800, 500); //fittest
 		
 		
 		EnvFrame frame = new EnvFrame("--", 800, 500, env);
-		try {
-			Thread.sleep(5000);
-		} catch (InterruptedException e) {e.printStackTrace();}
 		
-		env.runEnvironment(20);//TODO make accelleration work at all
+		
+		frame.startButton.addActionListener(new ActionListener(){
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				env.runEnvironment(20);//TODO make accelleration work at all
+				frame.startButton.removeActionListener(this);
+			}
+		});
+		
+		
 		
 	}
 	
@@ -81,7 +88,7 @@ public class EnvInit {
 		objects.add(new Rock(100,200));
 
 		
-		JFrame frame = new EnvFrame("--", 800, 500, new Environment(objects));
+		JFrame frame = new EnvFrame("--", 800, 500, new Environment(objects,800,500));
 		
 		for(int i = 0; i < 5000; i++){
 			try {
@@ -102,7 +109,7 @@ public class EnvInit {
 		//objects.add(new Bird(100, 100));
 		//objects.add(new Bird(100, 200, -90, 10, Color.BLUE));
 		
-		JFrame frame = new EnvFrame("--", 1920, 1080, new Environment(objects));
+		JFrame frame = new EnvFrame("--", 1920, 1080, new Environment(objects, 1920, 1080));
 
 		for(int i = 0; i < 500; i++){
 			synchronized(objects){
