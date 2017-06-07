@@ -11,10 +11,10 @@ public class Bird extends EnvObject {
 	private static final Color DEFAULT_COLOR = Color.BLUE;
 	private static final int HITBOX_POINTS = 4;
 	private static final boolean DEBUG = true;
+	public static final int SIGHT_DIVISIONS = 3;
 
-	private int sightSections = 3;
 	private int fov = 45; //TODO make constructor also
-	private int sightDist = 100;
+	private int sightDist = 200;
 	
 	private int size;
 	private Color color;
@@ -59,7 +59,8 @@ public class Bird extends EnvObject {
 	}
 	
 	public double[] getInputs(ArrayList<EnvObject> objects) {
-		double[] sight = getSight(sightSections, objects);
+
+		double[] sight = getSight(SIGHT_DIVISIONS, objects);
 		double[] inputs = new double[sight.length + 1];
 		
 		inputs[0] = speed;
@@ -105,7 +106,7 @@ public class Bird extends EnvObject {
 			Point right = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
 					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
 
-			int numSections = sightSections;
+			int numSections = SIGHT_DIVISIONS;
 
 			for(int i = 0; i < numSections+1; i++){
 				Point cLeft = new Point((int)((1-((double)i/numSections))*left.x + ((double)i/numSections)*right.x),
