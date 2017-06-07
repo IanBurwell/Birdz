@@ -46,7 +46,7 @@ public class EnvInit {
 		env = new Environment(hm, objects, 800, 500); //fittest
 		
 		
-		EnvFrame frame = new EnvFrame("--", 800, 500, env);
+		EnvFrame frame = new EnvFrame("--", env);
 		
 		
 		frame.startButton.addActionListener(new ActionListener(){
@@ -87,7 +87,7 @@ public class EnvInit {
 		objects.add(new Rock(100,200));
 
 		
-		JFrame frame = new EnvFrame("--", 800, 500, new Environment(objects,800,500));
+		JFrame frame = new EnvFrame("--", new Environment(objects,800,500));
 		
 		for(int i = 0; i < 5000; i++){
 			try {
@@ -108,7 +108,7 @@ public class EnvInit {
 		//objects.add(new Bird(100, 100));
 		//objects.add(new Bird(100, 200, -90, 10, Color.BLUE));
 		
-		JFrame frame = new EnvFrame("--", 1920, 1080, new Environment(objects, 1920, 1080));
+		JFrame frame = new EnvFrame("--", new Environment(objects, 1920, 1080));
 
 		for(int i = 0; i < 500; i++){
 			synchronized(objects){
