@@ -12,6 +12,7 @@ public class Bird extends EnvObject {
 	private static final int HITBOX_POINTS = 4;
 	private static final boolean DEBUG = true;
 
+	private int sightSections = 3;
 	private int fov = 45; //TODO make constructor also
 	private int sightDist = 100;
 	
@@ -21,6 +22,8 @@ public class Bird extends EnvObject {
 	private double degRotation;
 	private double speed;
 	//TODO make rotational velocity
+	
+	final private double[] originalData;
 	
 	public Bird() {
 		this(0, 0, 0, DEFAULT_SIZE, DEFAULT_COLOR);
@@ -35,6 +38,8 @@ public class Bird extends EnvObject {
 		this.degRotation = rot;
 		this.size = size;
 		color = c;
+		originalData = new double[]{x, y, rot, size};
+		
 	}
 
 	@Override
@@ -54,7 +59,7 @@ public class Bird extends EnvObject {
 	}
 	
 	public double[] getInputs(ArrayList<EnvObject> objects) {
-		double[] sight = getSight(3, objects);
+		double[] sight = getSight(sightSections, objects);
 		double[] inputs = new double[sight.length + 1];
 		
 		inputs[0] = speed;
@@ -100,7 +105,7 @@ public class Bird extends EnvObject {
 			Point right = new Point(base.x+(int)(sightDist*Math.cos(Math.toRadians(degRotation+((double)fov/2)))),
 					base.y+(int)(sightDist*Math.sin(Math.toRadians(degRotation+((double)fov/2)))));
 
-			int numSections = 3;
+			int numSections = sightSections;
 
 			for(int i = 0; i < numSections+1; i++){
 				Point cLeft = new Point((int)((1-((double)i/numSections))*left.x + ((double)i/numSections)*right.x),
@@ -177,6 +182,13 @@ public class Bird extends EnvObject {
 		return ABP + APC + PBC == ABC;
 	}
 
+	public void reset(){
+		this.setPosition(originalData[0], originalData[1]);
+		this.degRotation = originalData[2];
+		this.size = (int) originalData[3];
+		this.speed = 0;
+	}
+	
 	@Override
 	public EnvObject copy() {
 		return new Bird(getRoundedPosition().x, getRoundedPosition().y, degRotation, size, color);

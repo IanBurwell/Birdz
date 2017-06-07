@@ -19,7 +19,7 @@ public class Environment extends JComponent{
 	private int width, height;
 	private HashMap<Bird, Individual> iMap = null;
 	private EnvThread envThread = new EnvThread();
-
+	
 	private static final int DEFAULT_WIDTH = 500;
 	private static final int DEFAULT_HEIGHT = 500;
 
@@ -29,7 +29,10 @@ public class Environment extends JComponent{
 		this.height = height;
 		this.setPreferredSize(new Dimension(width, height));
 		this.setMinimumSize(new Dimension(width, height));
+				
 	}
+	
+
 	
 	public Environment(HashMap<Bird, Individual> hm, ArrayList<EnvObject> objects, int width, int height) {
 		this(objects, width, height);
@@ -107,33 +110,61 @@ public class Environment extends JComponent{
 
 	public void runEnvironment(int delay){
 		envThread.startDelay(delay);
+		envThread.unPause();
 	}
 
-	public void stopEnvironment(int delay){
-		envThread.interrupt();
+	public void pauseEnvironment(){
+		envThread.pause();
+	}
+	
+	public void resetEnvironment(){
+		envThread.pause();
+		for(EnvObject o : objects)
+			if(o instanceof Bird)((Bird)o).reset();
+		this.repaint();
+		
+	}
+	
+	public boolean isPaused(){
+		return envThread.isPaused();
 	}
 	
 	private class EnvThread extends Thread{
 		int delay = 10;
-
+		private boolean paused = false;
+		
 		EnvThread(){
 			//Environment.this;
 		}
 
 		void startDelay(int delay){
 			this.delay = delay;
-			this.start();
+			if(getState() == Thread.State.NEW) this.start();
 		}
 
+		void pause(){
+			paused = true;
+		}
+		
+		void unPause(){
+			paused = false;
+		}
+		
+		boolean isPaused(){
+			return paused;
+		}
 		@Override
 		public void run() {
-			//while(!interrupted()){
-			for(int i = 0; i < 1000; i++){	
-				Environment.this.updateIndividuals();//TODO make it update pos n stuffs
-				try {
-					sleep(delay);
-				} catch (InterruptedException e) {e.printStackTrace();}
-			}
+			while(!interrupted())
+				while(!paused){
+				//for(int i = 0; i < 1000; i++){	
+					Environment.this.updateIndividuals();//TODO make it update pos n stuffs
+					try {
+						sleep(delay);
+					} catch (InterruptedException e) {
+						break;
+					}
+				}
 		}
 
 	}

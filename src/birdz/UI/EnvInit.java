@@ -38,26 +38,30 @@ public class EnvInit {
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 3000; i++)
+		for(int i = 0; i < 800; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();
 		hm.put(bird, l.nextGeneration(false));
 		
-		env = new Environment(hm, objects, 800, 500); //fittest
+		env = new Environment(hm, objects, 800, 500); 
 		
-		
-		EnvFrame frame = new EnvFrame("--", env);
+		final EnvFrame frame = new EnvFrame("--", env);
 		
 		
 		frame.startButton.addActionListener(new ActionListener(){
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				env.runEnvironment(20);//TODO make accelleration work at all
-				frame.startButton.removeActionListener(this);
+				if(frame.startButton.getText().equals("Start")){
+					env.runEnvironment(20);
+					frame.startButton.setText("Reset");
+				}else{
+					env.resetEnvironment();
+					frame.startButton.setText("Start");
+				}
+				
 			}
 		});
-		
 		
 		
 	}
