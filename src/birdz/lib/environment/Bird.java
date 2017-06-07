@@ -11,9 +11,10 @@ public class Bird extends EnvObject {
 	private static final Color DEFAULT_COLOR = Color.BLUE;
 	private static final int HITBOX_POINTS = 4;
 	private static final boolean DEBUG = true;
+	public static final int SIGHT_DIVISIONS = 3;
 
 	private int fov = 45; //TODO make constructor also
-	private int sightDist = 100;
+	private int sightDist = 200;
 	
 	private int size;
 	private Color color;
@@ -54,7 +55,7 @@ public class Bird extends EnvObject {
 	}
 	
 	public double[] getInputs(ArrayList<EnvObject> objects) {
-		double[] sight = getSight(3, objects);
+		double[] sight = getSight(SIGHT_DIVISIONS, objects);
 		double[] inputs = new double[sight.length + 1];
 		
 		inputs[0] = speed;

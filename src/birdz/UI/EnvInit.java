@@ -10,9 +10,7 @@ import java.util.HashMap;
 import javax.swing.JFrame;
 
 import birdz.lib.environment.Bird;
-import birdz.lib.environment.EnvObject;
-import birdz.lib.environment.Environment;
-import birdz.lib.environment.Rock;
+import birdz.lib.environment.*;
 import birdz.lib.genetic.Individual;
 import birdz.lib.genetic.Learner;
 import birdz.lib.simulations.BirdFitnessCalc;
@@ -31,14 +29,15 @@ public class EnvInit {
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		Bird bird = new Bird(300, 300, 0, 10, Color.BLUE);
 		objects.add(bird);
-		objects.add(new Rock(100,200));
+		objects.add(new Rock(100, 200));
+//		objects.add(new Goal(500, 100, 50));
 		env = new Environment(objects, 800, 500);		
 		//JFrame frame = new EnvFrame("--", 800, 500, env);
 
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 3000; i++)
+		for(int i = 0; i < 2000; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();

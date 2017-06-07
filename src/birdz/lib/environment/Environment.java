@@ -90,21 +90,50 @@ public class Environment extends JComponent{
 			if(e instanceof Bird) b = (Bird)e;
 		
 		double[] outputs;
-		double j;
 		double score = 0;
+		
 		EnvObject obj = objects.get(1);
 		for(EnvObject e : objects)
 			if(!(e instanceof Bird)) obj = e;
-		for(j = 0; j < 1000; j++) {
+		
+		double j, k;
+		for(j = 0, k=0; j < 1000; j++) {
 			//System.out.println(Arrays.toString(b.getInputs(objects)));
 			outputs = i.fire(b.getInputs(objects));
 			updateBird(outputs, b);
+			if(b.getRoundedPosition().distance(obj.getRoundedPosition()) < 3) k+=1;
 		}
 		score -= Math.pow(b.getRoundedPosition().distance(obj.getRoundedPosition()),2);
 		score -= b.getSpeed();
+		score += k;
 		return score;
 	}
 
+	public double getFitness2(Individual i) {
+		Bird b = new Bird();
+		for(EnvObject e : objects)
+			if(e instanceof Bird) b = (Bird)e;
+		
+		double[] outputs;
+		double score = 0;
+		
+		EnvObject obj = objects.get(1);
+		for(EnvObject e : objects)
+			if(!(e instanceof Bird)) obj = e;
+		
+		double j, k;
+		for(j = 0, k=0; j < 1000; j++) {
+			//System.out.println(Arrays.toString(b.getInputs(objects)));
+			outputs = i.fire(b.getInputs(objects));
+			updateBird(outputs, b);
+			if(b.getRoundedPosition().distance(obj.getRoundedPosition()) < 3) k+=1;
+		}
+		score -= Math.pow(b.getRoundedPosition().distance(obj.getRoundedPosition()),2);
+		score -= b.getSpeed();
+		score += k;
+		return score;
+	}
+	
 	public void runEnvironment(int delay){
 		envThread.startDelay(delay);
 	}

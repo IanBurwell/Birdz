@@ -1,5 +1,6 @@
 package birdz.lib.simulations;
 
+import birdz.lib.environment.Bird;
 import birdz.lib.environment.Environment;
 import birdz.lib.genetic.FitnessCalc;
 import birdz.lib.genetic.Individual;
@@ -24,12 +25,12 @@ public class BirdFitnessCalc implements FitnessCalc {
 
 	@Override
 	public int getNumInputs() {
-		return 4;
+		return Bird.SIGHT_DIVISIONS + 1;
 	}
 
 	@Override
 	public int getNumLayers() {
-		return 3;
+		return 4;
 	}
 
 	@Override
