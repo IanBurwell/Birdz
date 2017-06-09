@@ -13,7 +13,7 @@ public class Bird extends EnvObject {
 	private static final boolean DEBUG = true;
 	public static final int SIGHT_DIVISIONS = 3;
 
-	private int fov = 45; //TODO make constructor also
+	private int fov = 45; //TODO make constructor including this
 	private int sightDist = 200;
 	
 	private int size;

@@ -11,6 +11,11 @@ import javax.swing.JComponent;
 
 import birdz.lib.genetic.Individual;
 
+/**
+ * This class is a component to be put in a window (JFrame) that simulates an environment for the birds
+ * @author Ian Burwell
+ *
+ */
 public class Environment extends JComponent{
 
 	private static final long serialVersionUID = 8786961387046987953L;

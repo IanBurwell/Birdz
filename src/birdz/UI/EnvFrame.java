@@ -13,7 +13,11 @@ import javax.swing.JPanel;
 import javax.swing.border.Border;
 
 import birdz.lib.environment.*;
-
+/**
+ * THis is the container /window that will hold our environment along with some buttons for interaction with it
+ * @author Ian Burwell
+ *
+ */
 public class EnvFrame extends JFrame {
 
 	private static final long serialVersionUID = -8011140655139414918L;

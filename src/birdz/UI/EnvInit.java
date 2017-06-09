@@ -15,6 +15,13 @@ import birdz.lib.genetic.Individual;
 import birdz.lib.genetic.Learner;
 import birdz.lib.simulations.BirdFitnessCalc;
 
+
+/**
+ * This is the file that should be run to test our environment and bird implementation of our neural network.
+ * @author Ian and Ian
+ * 
+ */
+
 public class EnvInit {
 
 	public static void main(String[] args){
@@ -32,12 +39,11 @@ public class EnvInit {
 		objects.add(new Rock(100, 200));
 //		objects.add(new Goal(500, 100, 50));
 		env = new Environment(objects, 800, 500);		
-		//JFrame frame = new EnvFrame("--", 800, 500, env);
 
 		BirdFitnessCalc fc = new BirdFitnessCalc(env);
 		Learner l = new Learner(fc, 6);
 		
-		for(int i = 0; i < 2000; i++)
+		for(int i = 0; i < 4000; i++)
 			l.nextGeneration(true);
 	
 		HashMap<Bird, Individual> hm = new HashMap<Bird, Individual>();
@@ -83,7 +89,7 @@ public class EnvInit {
 	
 	
 	
-	
+	@Deprecated
 	private static void testGetSight() {
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		//objects.add(new Bird(100, 100));
@@ -107,6 +113,9 @@ public class EnvInit {
 		}
 		
 	}
+	
+	
+	@Deprecated
 	static void spam(){
 		ArrayList<EnvObject> objects = new ArrayList<EnvObject>();
 		//objects.add(new Bird(100, 100));
